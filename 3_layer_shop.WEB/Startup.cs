@@ -27,6 +27,7 @@ namespace _3_layer_shop.WEB
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

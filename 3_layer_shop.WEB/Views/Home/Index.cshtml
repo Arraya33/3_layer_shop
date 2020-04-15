@@ -1,1 +1,32 @@
-﻿index page
+﻿        <!-- Home -->
+
+<div class="home">
+    <div class="home_slider_container">
+
+        <vc:home-slider />
+
+    </div>
+</div>
+
+<!-- Products -->
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="product_grid">
+                    <partial name="Partials/Product/ProductCardPartial" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ad -->
+<partial name="Partials/Banners/SingleBannerPartial" />
+
+<!-- Icon Boxes -->
+<partial name="Partials/Icons/IconBoxesPartial" />
+
+<!-- Newsletter -->
+<partial name="Partials/Forms/NewsletterFormPartial" />

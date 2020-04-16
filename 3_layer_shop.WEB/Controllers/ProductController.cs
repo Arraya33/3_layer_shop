@@ -12,5 +12,10 @@ namespace _3_layer_shop.WEB.Controllers
         {
             return View();
         }
+
+        public ActionResult List(string categoryAlias)
+        {
+            return View();
+        }
     }
 }

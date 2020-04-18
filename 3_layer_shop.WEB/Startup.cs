@@ -36,10 +36,12 @@ namespace _3_layer_shop.WEB
                     name: "productPage",
                     pattern: "Product/{productAlias}",
                     defaults: new { controller = "Product", action = "Product" });
+
                 endpoints.MapControllerRoute(
-                    name: "productPage",
-                    pattern: @"{categoryAlias}",
+                    name: "productCategoryPage",
+                    pattern: "{categoryAlias}",
                     defaults: new { controller = "Product", action = "List" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

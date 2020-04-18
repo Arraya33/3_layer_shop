@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _3_layer_shop.WEB.Models
+namespace _3_layer_shop.WEB.Models.ViewModels
 {
     public class ProductViewModel
     {
@@ -15,7 +15,7 @@ namespace _3_layer_shop.WEB.Models
         public string IntroText { get; set; }
         public string Description { get; set; }
         public string MainImage { get; set; }
-        public List<string> Images { get; set; }
+        public IEnumerable<string> Images { get; set; }
         public int Quantity { get; set; }
     }
 }

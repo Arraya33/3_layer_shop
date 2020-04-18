@@ -1,4 +1,5 @@
-﻿	<!-- Home -->
+﻿@model ProductListViewModel
+<!-- Home -->
 
 <div class="home">
     <partial name="Partials/Banners/SingleBanner2Partial" />
@@ -36,7 +37,7 @@
             <div class="col">
 
                 <div class="product_grid">
-                    @foreach (ProductViewModel product in Model)
+                    @foreach (ProductViewModel product in Model.Products)
                     {
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }

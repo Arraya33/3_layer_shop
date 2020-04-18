@@ -33,6 +33,11 @@ namespace _3_layer_shop.WEB
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                name: "discountPage",
+                pattern: "Discount",
+                defaults: new { controller = "Product", action = "DiscountList" });
+
+                endpoints.MapControllerRoute(
                     name: "productPage",
                     pattern: "Product/{productAlias}",
                     defaults: new { controller = "Product", action = "Product" });

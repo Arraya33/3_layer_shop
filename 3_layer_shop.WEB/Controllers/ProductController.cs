@@ -22,6 +22,8 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult Product(string productAlias)
         {
+            ViewBag.Title = "Товар";
+
             return View();
         }
 
@@ -51,6 +53,8 @@ namespace _3_layer_shop.WEB.Controllers
                 Name = "Категория товаров"
             };
 
+            ViewBag.Title = "Категория товаров";
+
             return View(model);
         }
 
@@ -79,6 +83,8 @@ namespace _3_layer_shop.WEB.Controllers
                 PagingInfo = pagingInfo,
                 Name = "Товары со скидкой"
             };
+
+            ViewBag.Title = "Товары со скидкой";
 
             return View(model);
         }

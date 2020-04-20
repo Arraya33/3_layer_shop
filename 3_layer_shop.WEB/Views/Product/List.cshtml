@@ -11,7 +11,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
                 <!-- Product Sorting -->
                 <div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
                     <div class="results">Showing <span>12</span> results</div>
@@ -42,14 +41,7 @@
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }
                 </div>
-                <div class="product_pagination">
-                    <ul>
-                        <li class="active"><a href="#">01.</a></li>
-                        <li><a href="#">02.</a></li>
-                        <li><a href="#">03.</a></li>
-                    </ul>
-                </div>
-
+                <div class="product_pagination" page-model="Model.PagingInfo" page-action="DiscountList"></div>
             </div>
         </div>
     </div>

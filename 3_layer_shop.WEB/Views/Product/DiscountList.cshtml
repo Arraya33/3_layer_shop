@@ -42,22 +42,7 @@
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }
                 </div>
-                <div class="product_pagination">
-                    <ul>
-                        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
-                        {
-                            @if (i == Model.PagingInfo.CurrentPage)
-                            {
-                                <li class="active"><a asp-controller="Product" asp-action="DiscountList" asp-route-page="@i">@i.</a></li>
-                            }
-                            else
-                            {
-                                <li><a asp-controller="Product" asp-action="DiscountList" asp-route-page="@i">@i.</a></li>
-                            }
-                        }
-                    </ul>
-                </div>
-
+                <div class="product_pagination" page-model="Model.PagingInfo" page-action="DiscountList"></div>
             </div>
         </div>
     </div>

@@ -17,5 +17,6 @@ namespace _3_layer_shop.WEB.Models.ViewModels
         public string MainImage { get; set; }
         public IEnumerable<string> Images { get; set; }
         public int Quantity { get; set; }
+        public IEnumerable<ProductViewModel> RelatedProducts { get; set; }
     }
 }

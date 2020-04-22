@@ -18,7 +18,7 @@
                         <img src="@Model.MainImage" alt="@Model.Name">
                         @if (Model.DiscountPrice > 0)
                         {
-                            <div class="product_extra product_new"><a href="categories.html">New</a></div>
+                            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>
                         }
                     </div>
                     <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">

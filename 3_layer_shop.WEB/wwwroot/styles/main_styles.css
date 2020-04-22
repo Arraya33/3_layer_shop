@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -359,7 +359,8 @@ section
 {
 	margin-right: 46px;
 }
-.main_nav > ul > li > a
+.main_nav > ul > li > a,
+.main_nav > ul > li > span 
 {
 	font-size: 16px;
 	font-weight: 600;
@@ -371,6 +372,7 @@ section
 	transition: all 200ms ease;
 }
 .main_nav > ul > li > a:hover,
+.main_nav > ul > li > span:hover,
 .main_nav > ul > li.active > a
 {
 	color: #1b1b1b;

@@ -1,4 +1,13 @@
-﻿.page-title {
+﻿.page-title 
+{
     margin-top: 20px;
     text-align: center;
+}
+.hassubs ul 
+{
+    width: max-content;
+}
+.main_nav > ul > li.active > a,
+.main_nav > ul > li > ul > li.active > a {
+    color: #1b1b1b;
 }

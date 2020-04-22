@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -247,6 +247,7 @@
 		padding-top: 80px;
 	}
 	.page_menu_item > a,
+	.page_menu_item > span,
 	.page_menu_selection li a
 	{
 		font-size: 13px;

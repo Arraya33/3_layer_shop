@@ -692,7 +692,8 @@ section
 {
 	border-bottom: solid 1px rgba(0,0,0,0.2);
 }
-.page_menu_item > a
+.page_menu_item > a,
+.page_menu_item > span 
 {
 	display: block;
 	color: #1b1b1b;

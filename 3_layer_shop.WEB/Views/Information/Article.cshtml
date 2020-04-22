@@ -1,0 +1,32 @@
+﻿@model InformationViewModel
+<!-- Home -->
+
+<div class="home">
+    <partial name="Partials/Banners/SingleBanner2Partial" />
+</div>
+
+<div class="container">
+    <div class="row">
+        <h1 class="col page-title">@Model.Name</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter -->
+<partial name="Partials/Forms/NewsletterFormPartial" />
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/styles/categories.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/categories_responsive.css">
+}
+
+@section Scripts {
+    <script src="~/js/categories.js"></script>
+}

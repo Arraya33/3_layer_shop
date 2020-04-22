@@ -43,6 +43,11 @@ namespace _3_layer_shop.WEB
                     defaults: new { controller = "Product", action = "Product" });
 
                 endpoints.MapControllerRoute(
+                    name: "articlePage",
+                    pattern: "Article/{articleAlias}",
+                    defaults: new { controller = "Information", action = "Article" });
+
+                endpoints.MapControllerRoute(
                     name: "productCategoryPage",
                     pattern: "{categoryAlias}",
                     defaults: new { controller = "Product", action = "List" });

@@ -1,0 +1,32 @@
+﻿@model MenuViewModel
+
+@{ var route = Url.ActionContext.RouteData.Values; }
+
+<nav class="main_nav">
+    <ul>
+        <li class="@(route["Controller"].ToString() == "Home" && route["Action"].ToString() == "Index" ? "active" : "")">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="hassubs">
+            <span>Categories</span>
+            <ul>
+
+                @foreach (ProductListViewModel category in Model.ProductCateories)
+                {
+                    <li class="@(route["Controller"].ToString() == "Product" && route["Action"].ToString() == "List" && route["categoryAlias"].ToString() == @category.Alias ? "active" : "")">
+                        <a asp-controller="Product" asp-action="List" asp-route-categoryAlias="@category.Alias">@category.Name</a>
+                    </li>
+                }
+            </ul>
+        </li>
+        <li class="@(route["Controller"].ToString() == "Product" && route["Action"].ToString() == "DiscountList" ? "active" : "")">
+            <a asp-controller="Product" asp-action="DiscountList">Discount</a>
+        </li>
+        @foreach (InformationViewModel information in Model.Informations)
+        {
+            <li class="@(route["Controller"].ToString() == "Information" && route["Action"].ToString() == "Article" && route["articleAlias"].ToString() == information.Alias ? "active" : "")">
+                <a asp-controller="Information" asp-action="Article" asp-route-articleAlias="@information.Alias">@information.Name</a>
+            </li>
+        }
+    </ul>
+</nav>

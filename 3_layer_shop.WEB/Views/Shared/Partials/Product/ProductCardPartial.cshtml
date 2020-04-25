@@ -1,0 +1,20 @@
+﻿@model ProductViewModel
+
+    <div class="product">
+        <div class="product_image"><img src="@Model.MainImage" /></div>
+        @if (Model.DiscountPrice > 0)
+        {
+            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>
+        }
+        <div class="product_content">
+            <div class="product_title"><a asp-controller="Product" asp-action="Product" asp-route-productAlias="@Model.Alias">@Model.Name</a></div>
+            @if (Model.DiscountPrice > 0)
+            {
+                <div class="product_price">$@Model.DiscountPrice</div>
+            }
+            else
+            {
+                <div class="product_price">$@Model.Price</div>
+            }
+        </div>
+    </div>

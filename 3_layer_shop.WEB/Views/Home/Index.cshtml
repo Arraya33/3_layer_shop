@@ -1,1 +1,43 @@
-﻿index page
+﻿@model IEnumerable<ProductViewModel>
+<!-- Home -->
+
+<div class="home">
+    <div class="home_slider_container">
+        <vc:home-slider />
+    </div>
+</div>
+
+<!-- Products -->
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="product_grid">
+                    @foreach(ProductViewModel product in Model)
+                    {
+                        <partial name="Partials/Product/ProductCardPartial" model="product" />
+                    }                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ad -->
+<partial name="Partials/Banners/SingleBannerPartial" />
+
+<!-- Icon Boxes -->
+<partial name="Partials/Icons/IconBoxesPartial" />
+
+<!-- Newsletter -->
+<partial name="Partials/Forms/NewsletterFormPartial" />
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/responsive.css">
+}
+
+@section Scripts {
+    <script src="~/js/custom.js"></script>
+}

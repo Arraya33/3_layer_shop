@@ -27,10 +27,31 @@ namespace _3_layer_shop.WEB
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "discountPage",
+                pattern: "Discount",
+                defaults: new { controller = "Product", action = "DiscountList" });
+
+                endpoints.MapControllerRoute(
+                    name: "productPage",
+                    pattern: "Product/{productAlias}",
+                    defaults: new { controller = "Product", action = "Product" });
+
+                endpoints.MapControllerRoute(
+                    name: "articlePage",
+                    pattern: "Article/{articleAlias}",
+                    defaults: new { controller = "Information", action = "Article" });
+
+                endpoints.MapControllerRoute(
+                    name: "productCategoryPage",
+                    pattern: "{categoryAlias}",
+                    defaults: new { controller = "Product", action = "List" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

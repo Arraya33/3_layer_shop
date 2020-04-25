@@ -1,5 +1,8 @@
-﻿using _3_layer_shop.WEB.Models;
+﻿using _3_layer_shop.BLL.DTO;
+using _3_layer_shop.BLL.Interfaces;
+using _3_layer_shop.WEB.Models;
 using _3_layer_shop.WEB.Models.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,37 +14,24 @@ namespace _3_layer_shop.WEB.Controllers
 {
     public class ProductController : Controller
     {
+        readonly IProductService _productService;
         readonly IConfiguration _configuration;
         int _pageSize;
 
-        public ProductController(IConfiguration configuration)
+        public ProductController(IConfiguration configuration, IProductService productService)
         {
             _configuration = configuration;
+            _productService = productService;
             _pageSize = _configuration.GetValue<int>("PageSize");
         }
 
         public ActionResult Product(string productAlias)
         {
-            ViewBag.Title = "Товар";
+            ProductDTO productDTO = _productService.GetProduct(productAlias);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductDTO, ProductViewModel>()).CreateMapper();
+            var model = mapper.Map<ProductViewModel>(productDTO);
 
-            ProductViewModel model = new ProductViewModel 
-            { 
-                RelatedProducts = new List<ProductViewModel> 
-                { 
-                    new ProductViewModel{ MainImage = "/images/product_1.jpg", Name = "Product1", Alias = "product_1", Price = 123, DiscountPrice = 55 }, 
-                    new ProductViewModel{ MainImage = "/images/product_2.jpg", Name = "Product2", Alias = "product_2", Price = 423 },
-                    new ProductViewModel{ MainImage = "/images/product_3.jpg", Name = "Product3", Alias = "product_3", Price = 112, DiscountPrice = 54 }
-                },
-                MainImage = "/images/product_5.jpg",
-                Name = "Product5",
-                Alias = "product_5",
-                Price = 2344,
-                DiscountPrice = 444,
-                Images = new List<string> { "/images/product_1.jpg", "/images/product_2.jpg", "/images/product_3.jpg", "/images/product_4.jpg" },
-                Quantity = 4,
-                IntroText = "<p>Text text text</p>",
-                Description = "<p>Text2 text2 text2</p>"
-            };
+            ViewBag.Title = model.Name;
 
             return View(model);
         }

@@ -75,5 +75,17 @@ namespace _3_layer_shop.BLL.Services
 
             return productCategory;
         }
+
+        public IEnumerable<ProductCategoryDTO> GetProductCategoryList()
+        {
+            List<ProductCategoryDTO> productCategoryList = new List<ProductCategoryDTO>();
+            productCategoryList.Add(new ProductCategoryDTO { Name = "Category 1", Alias = "Category1" });
+            productCategoryList.Add(new ProductCategoryDTO { Name = "Category 2", Alias = "Category2" });
+            productCategoryList.Add(new ProductCategoryDTO { Name = "Category 55", Alias = "Category55" });
+            productCategoryList.Add(new ProductCategoryDTO { Name = "Category 4", Alias = "Category4" });
+            productCategoryList.Add(new ProductCategoryDTO { Name = "Category 5", Alias = "Category5" });
+
+            return productCategoryList;
+        }
     }
 }

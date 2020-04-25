@@ -9,5 +9,6 @@ namespace _3_layer_shop.BLL.Interfaces
     {
         public ProductDTO GetProduct(string productAlias);
         public ProductCategoryDTO GetProductCategory(string categoryAlias, int pageNumber, int pageSize);
+        public ProductCategoryDTO GetDiscountProducts(int pageNumber, int pageSize);
     }
 }

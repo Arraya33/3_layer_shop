@@ -19,6 +19,7 @@ namespace _3_layer_shop.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IProductService, DbProductService>();
+            services.AddTransient<IInformationService, DbInformationService>();
             services.AddMvc();
         }
 

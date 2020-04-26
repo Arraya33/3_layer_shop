@@ -25,14 +25,14 @@ namespace _3_layer_shop.WEB.Components
         {
             MenuViewModel model = new MenuViewModel();
 
-            IEnumerable<ProductCategoryDTO> productCategoryDTOs = _productService.GetProductCategoryList();
-            IMapper productMapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductCategoryDTO, ProductListViewModel>()).CreateMapper();
-            IEnumerable<ProductListViewModel> productCateories = productMapper.Map<IEnumerable<ProductListViewModel>>(productCategoryDTOs);
+            IEnumerable<ProductCategoryPageDTO> productCategoryDTOs = _productService.GetProductCategoryList();
+            IMapper productMapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>()).CreateMapper();
+            IEnumerable<ProductListPageViewModel> productCateories = productMapper.Map<IEnumerable<ProductListPageViewModel>>(productCategoryDTOs);
             model.ProductCateories = productCateories;
 
-            IEnumerable<InformationDTO> informationDTOs = _informationService.GetInformationList();
-            IMapper informationMapper = new MapperConfiguration(cfg => cfg.CreateMap<InformationDTO, InformationViewModel>()).CreateMapper();
-            IEnumerable<InformationViewModel> informationList = informationMapper.Map<IEnumerable<InformationViewModel>>(informationDTOs);
+            IEnumerable<InformationPageDTO> informationDTOs = _informationService.GetInformationList();
+            IMapper informationMapper = new MapperConfiguration(cfg => cfg.CreateMap<InformationPageDTO, InformationPageViewModel>()).CreateMapper();
+            IEnumerable<InformationPageViewModel> informationList = informationMapper.Map<IEnumerable<InformationPageViewModel>>(informationDTOs);
             model.Informations = informationList;
 
             return View(model);

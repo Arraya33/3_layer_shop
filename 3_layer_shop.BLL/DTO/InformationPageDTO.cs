@@ -1,13 +1,12 @@
-﻿using System;
+﻿using _3_layer_shop.BLL.DTO.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace _3_layer_shop.BLL.DTO
 {
-    public class InformationDTO
+    public class InformationPageDTO : PageDTO
     {
-        public int Id { get; set; }
-        public string Alias { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
     }

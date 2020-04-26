@@ -9,7 +9,7 @@ namespace _3_layer_shop.WEB.Components
 {
     public class RelatedProductsViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(IEnumerable<ProductViewModel> products)
+        public IViewComponentResult Invoke(IEnumerable<ProductPageViewModel> products)
         {
             return View(products);
         }

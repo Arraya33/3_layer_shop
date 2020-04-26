@@ -7,6 +7,6 @@ namespace _3_layer_shop.BLL.Interfaces
 {
     public interface IInformationService
     {
-        public IEnumerable<InformationDTO> GetInformationList();
+        public IEnumerable<InformationPageDTO> GetInformationList();
     }
 }

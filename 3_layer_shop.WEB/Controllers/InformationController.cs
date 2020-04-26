@@ -11,7 +11,7 @@ namespace _3_layer_shop.WEB.Controllers
     {
         public ActionResult Article(string articleAlias)
         {
-            InformationViewModel model = new InformationViewModel { Name = "Статья", Content = @"<p>Статья текст текст текст текст текст 
+            InformationPageViewModel model = new InformationPageViewModel { Name = "Статья", Content = @"<p>Статья текст текст текст текст текст 
                 текст текст текст<br> текст текст текст текст текст текст текст</p>" };
 
             return View(model);

@@ -27,25 +27,25 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult Product(string productAlias)
         {
-            ProductDTO productDTO = _productService.GetProduct(productAlias);
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductDTO, ProductViewModel>()).CreateMapper();
-            ProductViewModel model = mapper.Map<ProductViewModel>(productDTO);
+            ProductPageDTO productDTO = _productService.GetProductPage(productAlias);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductPageDTO, ProductPageViewModel>()).CreateMapper();
+            ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productDTO);
 
-            ViewBag.Title = model.Name;
+            ViewBag.Title = model.Title;
 
             return View(model);
         }
 
         public ActionResult List(string categoryAlias, int page = 1)
         {
-            ProductCategoryDTO productCategoryDTO = _productService.GetProductCategory(categoryAlias, page, _pageSize);
+            ProductCategoryPageDTO productCategoryDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize);
 
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
-                cfg.CreateMap<ProductCategoryDTO, ProductListViewModel>(); 
-                cfg.CreateMap<ProductDTO, ProductViewModel>(); 
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>(); 
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>(); 
             }).CreateMapper();
-            ProductListViewModel model = mapper.Map<ProductListViewModel>(productCategoryDTO);
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryDTO);
 
             PagingInfo pagingInfo = new PagingInfo
             {
@@ -56,21 +56,21 @@ namespace _3_layer_shop.WEB.Controllers
 
             model.PagingInfo = pagingInfo;
 
-            ViewBag.Title = model.Name;
+            ViewBag.Title = model.Title;
 
             return View(model);
         }
 
         public ActionResult DiscountList(int page = 1)
         {
-            ProductCategoryDTO productCategoryDTO = _productService.GetDiscountProducts(page, _pageSize);
+            ProductCategoryPageDTO productCategoryDTO = _productService.GetDiscountProductPage(page, _pageSize);
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProductCategoryDTO, ProductListViewModel>();
-                cfg.CreateMap<ProductDTO, ProductViewModel>();
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
             }).CreateMapper();
-            ProductListViewModel model = mapper.Map<ProductListViewModel>(productCategoryDTO);
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryDTO);
 
             PagingInfo pagingInfo = new PagingInfo
             {

@@ -20,6 +20,7 @@ namespace _3_layer_shop.WEB
         {
             services.AddTransient<IProductService, DbProductService>();
             services.AddTransient<IInformationService, DbInformationService>();
+            services.AddTransient<IBannerService, DbBannerService>();
             services.AddMvc();
         }
 

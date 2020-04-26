@@ -8,13 +8,13 @@ namespace _3_layer_shop.BLL.Services
 {
     public class DbInformationService : IInformationService
     {
-        public IEnumerable<InformationDTO> GetInformationList()
+        public IEnumerable<InformationPageDTO> GetInformationList()
         {
-            IEnumerable<InformationDTO> informationList = new List<InformationDTO>
+            IEnumerable<InformationPageDTO> informationList = new List<InformationPageDTO>
             {
-                new InformationDTO { Alias = "article_1", Name = "article 1" },
-                new InformationDTO { Alias = "article_2", Name = "article 2" },
-                new InformationDTO { Alias = "article_3", Name = "article 3" }
+                new InformationPageDTO { Alias = "article_1", Name = "article 1" },
+                new InformationPageDTO { Alias = "article_2", Name = "article 2" },
+                new InformationPageDTO { Alias = "article_3", Name = "article 3" }
             };
             return informationList;
         }

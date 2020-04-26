@@ -18,5 +18,13 @@ namespace _3_layer_shop.BLL.Services
             };
             return informationList;
         }
+
+        public InformationPageDTO GetArticlePage(string articleAlias)
+        {
+            InformationPageDTO informationPage = new InformationPageDTO { Name = "Статья 1", Content = @"<p>Статья текст текст текст текст текст 
+                текст текст текст<br> текст текст текст текст текст текст текст</p>", Title = "Статья" };
+
+            return informationPage;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace _3_layer_shop.BLL.Interfaces
     public interface IInformationService
     {
         public IEnumerable<InformationPageDTO> GetInformationList();
+        public InformationPageDTO GetArticlePage(string articleAlias);
     }
 }

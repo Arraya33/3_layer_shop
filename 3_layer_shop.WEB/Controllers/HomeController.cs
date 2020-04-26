@@ -21,9 +21,11 @@ namespace _3_layer_shop.WEB.Controllers
             products.Add(new ProductViewModel { MainImage = "/images/product_7.jpg", Name = "Product7", Alias = "product_7", Price = 234, DiscountPrice = 55 });
             products.Add(new ProductViewModel { MainImage = "/images/product_8.jpg", Name = "Product8", Alias = "product_8", Price = 111 });
 
+            HomePageViewModel model = new HomePageViewModel { Products = products, BannerGroupId = 3 };
+
             ViewBag.Title = "Главная";
 
-            return View(products);
+            return View(model);
         }
     }
 }

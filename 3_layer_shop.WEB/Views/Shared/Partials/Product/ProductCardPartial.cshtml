@@ -1,7 +1,7 @@
 ﻿@model ProductPageViewModel
 
     <div class="product">
-        <div class="product_image"><img src="@Model.MainImage" /></div>
+        <div class="product_image"><img src="@Model.MainImage.Path" alt="@Model.MainImage.Alt"/></div>
         @if (Model.DiscountPrice > 0)
         {
             <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>

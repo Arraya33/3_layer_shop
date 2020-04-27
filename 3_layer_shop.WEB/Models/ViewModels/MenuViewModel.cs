@@ -7,7 +7,7 @@ namespace _3_layer_shop.WEB.Models.ViewModels
 {
     public class MenuViewModel
     {
-        public IEnumerable<ProductListViewModel> ProductCateories { get; set; }
-        public IEnumerable<InformationViewModel> Informations { get; set; }
+        public IEnumerable<ProductListPageViewModel> ProductCateories { get; set; }
+        public IEnumerable<InformationPageViewModel> Informations { get; set; }
     }
 }

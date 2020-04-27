@@ -1,4 +1,7 @@
-﻿using _3_layer_shop.WEB.Models.ViewModels;
+﻿using _3_layer_shop.BLL.DTO;
+using _3_layer_shop.BLL.Interfaces;
+using _3_layer_shop.WEB.Models.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,33 +12,22 @@ namespace _3_layer_shop.WEB.Components
 {
     public class HomeSliderViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        IBannerService _bannerService;
+
+        public HomeSliderViewComponent(IBannerService bannerService)
         {
-            List<BannerViewModel> model = new List<BannerViewModel>();
+            _bannerService = bannerService;
+        }
 
-            model.Add(new BannerViewModel 
-            { 
-                Image = "/images/home_slider_1.jpg",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Text text text",
-                Link = "https://google.com", 
-                Title = "Banner 1" 
-            });
-
-            model.Add(new BannerViewModel
+        public IViewComponentResult Invoke(int bannerGroupId)
+        {
+            BannerGroupDTO bannerGroupDTO = _bannerService.GetBannerGroup(bannerGroupId);
+            IMapper mapper = new MapperConfiguration(cfg => 
             {
-                Image = "/images/home_slider_1.jpg",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Text text text",
-                Link = "https://google.com",
-                Title = "Banner 2"
-            });
-
-            model.Add(new BannerViewModel
-            {
-                Image = "/images/home_slider_1.jpg",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Text text text",
-                Link = "https://google.com",
-                Title = "Banner 3"
-            });
+                cfg.CreateMap<BannerGroupDTO, BannerGroupViewModel>();
+                cfg.CreateMap<BannerDTO, BannerViewModel>();
+            }).CreateMapper();
+            BannerGroupViewModel model = mapper.Map<BannerGroupViewModel>(bannerGroupDTO);
 
             return View(model);
         }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _3_layer_shop.BLL.Interfaces;
+using _3_layer_shop.BLL.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +18,10 @@ namespace _3_layer_shop.WEB
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IProductService, DbProductService>();
+            services.AddTransient<IInformationService, DbInformationService>();
+            services.AddTransient<IBannerService, DbBannerService>();
+            services.AddTransient<ICommonService, DbCommonService>();
             services.AddMvc();
         }
 

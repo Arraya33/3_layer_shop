@@ -1,9 +1,9 @@
-﻿@model IEnumerable<ProductViewModel>
+﻿@model HomePageViewModel
 <!-- Home -->
 
 <div class="home">
     <div class="home_slider_container">
-        <vc:home-slider />
+        <vc:home-slider banner-group-id="@Model.BannerGroupId"/>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col">
                 <div class="product_grid">
-                    @foreach(ProductViewModel product in Model)
+                    @foreach(ProductPageViewModel product in Model.Products)
                     {
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }                   

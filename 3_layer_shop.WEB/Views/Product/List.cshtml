@@ -1,4 +1,4 @@
-﻿@model ProductListViewModel
+﻿@model ProductListPageViewModel
 <!-- Home -->
 
 <div class="home">
@@ -42,12 +42,12 @@
             <div class="col">
 
                 <div class="product_grid">
-                    @foreach (ProductViewModel product in Model.Products)
+                    @foreach (ProductPageViewModel product in Model.Products)
                     {
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }
                 </div>
-                <div class="product_pagination" page-model="Model.PagingInfo" page-action="DiscountList"></div>
+                <div class="product_pagination" page-model="Model.PagingInfo" page-action="List"></div>
             </div>
         </div>
     </div>

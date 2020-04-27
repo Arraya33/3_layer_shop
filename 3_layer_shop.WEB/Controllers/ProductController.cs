@@ -27,9 +27,9 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult Product(string productAlias)
         {
-            ProductPageDTO productDTO = _productService.GetProductPage(productAlias);
+            ProductPageDTO productPageDTO = _productService.GetProductPage(productAlias);
             IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductPageDTO, ProductPageViewModel>()).CreateMapper();
-            ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productDTO);
+            ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productPageDTO);
 
             ViewBag.Title = model.Title;
 
@@ -38,20 +38,20 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult List(string categoryAlias, int page = 1)
         {
-            ProductCategoryPageDTO productCategoryDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize);
+            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize);
 
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
                 cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>(); 
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>(); 
             }).CreateMapper();
-            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryDTO);
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryPageDTO);
 
             PagingInfo pagingInfo = new PagingInfo
             {
                 CurrentPage = page,
                 ItemsPerPage = _pageSize,
-                TotalItems = productCategoryDTO.TotalItems
+                TotalItems = productCategoryPageDTO.TotalItems
             };
 
             model.PagingInfo = pagingInfo;
@@ -63,20 +63,20 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult DiscountList(int page = 1)
         {
-            ProductCategoryPageDTO productCategoryDTO = _productService.GetDiscountProductPage(page, _pageSize);
+            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize);
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
             }).CreateMapper();
-            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryDTO);
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(discountProductsPageDTO);
 
             PagingInfo pagingInfo = new PagingInfo
             {
                 CurrentPage = page, 
                 ItemsPerPage = _pageSize, 
-                TotalItems = productCategoryDTO.TotalItems
+                TotalItems = discountProductsPageDTO.TotalItems
             };
 
             model.PagingInfo = pagingInfo;

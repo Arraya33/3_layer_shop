@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductViewModel>
+﻿@model IEnumerable<ProductPageViewModel>
 
 <div class="products">
     <div class="container">
@@ -11,7 +11,7 @@
             <div class="col">
 
                 <div class="product_grid">
-                    @foreach (ProductViewModel product in Model)
+                    @foreach (ProductPageViewModel product in Model)
                     {
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }                 

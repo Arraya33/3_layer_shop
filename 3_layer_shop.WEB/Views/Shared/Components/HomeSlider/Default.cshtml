@@ -1,8 +1,8 @@
-﻿@model IEnumerable<BannerViewModel>
+﻿@model BannerGroupViewModel
 
 <!-- Home Slider -->
     <div class="owl-carousel owl-theme home_slider">
-        @foreach (BannerViewModel banner in Model)
+        @foreach (BannerViewModel banner in Model.Banners)
         {
             <div class="owl-item home_slider_item">
                 <div class="home_slider_background" style="background-image:url(@banner.Image)"></div>
@@ -31,7 +31,7 @@
                 <div class="col">
                     <div class="home_slider_dots">
                         <ul id="home_slider_custom_dots" class="home_slider_custom_dots">
-                            @for (int i = 0; i < Model.Count(); i++)
+                            @for (int i = 0; i < Model.Banners.Count(); i++)
                             {
                                 if (i == 0)
                                 {

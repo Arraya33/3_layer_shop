@@ -11,7 +11,7 @@
             <span>Categories</span>
             <ul>
 
-                @foreach (ProductListViewModel category in Model.ProductCateories)
+                @foreach (ProductListPageViewModel category in Model.ProductCateories)
                 {
                     <li class="@(route["Controller"].ToString() == "Product" && route["Action"].ToString() == "List" && route["categoryAlias"].ToString() == @category.Alias ? "active" : "")">
                         <a asp-controller="Product" asp-action="List" asp-route-categoryAlias="@category.Alias">@category.Name</a>
@@ -22,7 +22,7 @@
         <li class="@(route["Controller"].ToString() == "Product" && route["Action"].ToString() == "DiscountList" ? "active" : "")">
             <a asp-controller="Product" asp-action="DiscountList">Discount</a>
         </li>
-        @foreach (InformationViewModel information in Model.Informations)
+        @foreach (InformationPageViewModel information in Model.Informations)
         {
             <li class="@(route["Controller"].ToString() == "Information" && route["Action"].ToString() == "Article" && route["articleAlias"].ToString() == information.Alias ? "active" : "")">
                 <a asp-controller="Information" asp-action="Article" asp-route-articleAlias="@information.Alias">@information.Name</a>

@@ -13,14 +13,14 @@
                 <li class="page_menu_item has-children menu_mm">
                     <span>Categories<i class="fa fa-angle-down"></i></span>
                     <ul class="page_menu_selection menu_mm">
-                        @foreach (ProductListViewModel category in Model.ProductCateories)
+                        @foreach (ProductListPageViewModel category in Model.ProductCateories)
                         {
                             <li class="page_menu_item menu_mm"><a asp-controller="Product" asp-action="List" asp-route-categoryAlias="@category.Alias">@category.Name<i class="fa fa-angle-down"></i></a></li>
                         }
                     </ul>
                 </li>
                 <li class="page_menu_item menu_mm"><a asp-controller="Product" asp-action="DiscountList">Discount<i class="fa fa-angle-down"></i></a></li>
-                @foreach (InformationViewModel information in Model.Informations)
+                @foreach (InformationPageViewModel information in Model.Informations)
                 {
                     <li class="page_menu_item menu_mm"><a asp-controller="Information" asp-action="Article" asp-route-articleAlias="@information.Alias">@information.Name<i class="fa fa-angle-down"></i></a></li>
                 }

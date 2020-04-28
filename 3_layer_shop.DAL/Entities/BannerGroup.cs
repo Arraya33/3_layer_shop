@@ -8,6 +8,6 @@ namespace _3_layer_shop.DAL.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Banner> Banners { get; set; }
+        public ICollection<Banner> Banners { get; set; }
     }
 }

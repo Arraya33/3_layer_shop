@@ -10,6 +10,6 @@ namespace _3_layer_shop.DAL.Entities
         public int Id { get; set; }
         public Page Page { get; set; }
         public string Name { get; set; }
-        public IEnumerable<ProductToCategory> ProductToCategories { get; set; }
+        public ICollection<ProductToCategory> ProductToCategories { get; set; }
     }
 }

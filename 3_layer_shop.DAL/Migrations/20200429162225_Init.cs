@@ -47,7 +47,7 @@ namespace _3_layer_shop.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PageId = table.Column<int>(nullable: true),
+                    PageId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true)
                 },
@@ -59,7 +59,7 @@ namespace _3_layer_shop.DAL.Migrations
                         column: x => x.PageId,
                         principalTable: "Pages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +68,7 @@ namespace _3_layer_shop.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PageId = table.Column<int>(nullable: true),
+                    PageId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -79,7 +79,7 @@ namespace _3_layer_shop.DAL.Migrations
                         column: x => x.PageId,
                         principalTable: "Pages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,7 +110,7 @@ namespace _3_layer_shop.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PageId = table.Column<int>(nullable: true),
+                    PageId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<int>(nullable: false),
                     DiscountPrice = table.Column<int>(nullable: false),
@@ -126,7 +126,7 @@ namespace _3_layer_shop.DAL.Migrations
                         column: x => x.PageId,
                         principalTable: "Pages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,7 +165,7 @@ namespace _3_layer_shop.DAL.Migrations
                         column: x => x.ProductCategoryId,
                         principalTable: "ProductCategories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductsToCategories_Products_ProductId",
                         column: x => x.ProductId,
@@ -189,13 +189,13 @@ namespace _3_layer_shop.DAL.Migrations
                         column: x => x.ProductChildId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProductsToProducts_Products_ProductParentId",
                         column: x => x.ProductParentId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -216,7 +216,8 @@ namespace _3_layer_shop.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Informations_PageId",
                 table: "Informations",
-                column: "PageId");
+                column: "PageId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pages_Alias",
@@ -233,7 +234,8 @@ namespace _3_layer_shop.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_PageId",
                 table: "ProductCategories",
-                column: "PageId");
+                column: "PageId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_MainImageId",
@@ -243,7 +245,8 @@ namespace _3_layer_shop.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Products_PageId",
                 table: "Products",
-                column: "PageId");
+                column: "PageId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductsToCategories_ProductCategoryId",

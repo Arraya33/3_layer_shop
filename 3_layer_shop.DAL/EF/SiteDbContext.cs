@@ -32,6 +32,9 @@ namespace _3_layer_shop.DAL.EF
             modelBuilder.ApplyConfiguration(new BannerGroupConfiguration());
             modelBuilder.ApplyConfiguration(new BannerConfiguration());
             modelBuilder.ApplyConfiguration(new PageConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new InformationConfiguration());
         }
 
         public class SiteDbContextFactory : IDesignTimeDbContextFactory<SiteDbContext>

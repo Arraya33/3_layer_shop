@@ -12,8 +12,9 @@ namespace _3_layer_shop.DAL.EF.Configuration
         public void Configure(EntityTypeBuilder<ProductToProduct> builder)
         {
             builder.ToTable("ProductsToProducts").HasOne(ptc => ptc.ProductParent)
-                .WithMany(product => product.ProductToProductsChilds).HasForeignKey(ptc => ptc.ProductParentId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(ptc => ptc.ProductChild).WithMany(product => product.ProductToProductsParents).HasForeignKey(ptc => ptc.ProductChildId);
+                .WithMany(product => product.ProductToProductsChilds).HasForeignKey(ptc => ptc.ProductParentId);
+            builder.HasOne(ptc => ptc.ProductChild)
+                .WithMany(product => product.ProductToProductsParents).HasForeignKey(ptc => ptc.ProductChildId).OnDelete(DeleteBehavior.Restrict);
             builder.HasKey(ptc => new { ptc.ProductChildId, ptc.ProductParentId });
         }
     }

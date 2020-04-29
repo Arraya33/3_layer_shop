@@ -10,7 +10,7 @@ using _3_layer_shop.DAL.EF;
 namespace _3_layer_shop.DAL.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    [Migration("20200428114531_Init")]
+    [Migration("20200429162225_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,12 +130,13 @@ namespace _3_layer_shop.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PageId")
+                    b.Property<int>("PageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PageId");
+                    b.HasIndex("PageId")
+                        .IsUnique();
 
                     b.ToTable("Informations");
                 });
@@ -159,7 +160,7 @@ namespace _3_layer_shop.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PageId")
+                    b.Property<int>("PageId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -172,7 +173,8 @@ namespace _3_layer_shop.DAL.Migrations
 
                     b.HasIndex("MainImageId");
 
-                    b.HasIndex("PageId");
+                    b.HasIndex("PageId")
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -187,12 +189,13 @@ namespace _3_layer_shop.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PageId")
+                    b.Property<int>("PageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PageId");
+                    b.HasIndex("PageId")
+                        .IsUnique();
 
                     b.ToTable("ProductCategories");
                 });
@@ -255,8 +258,10 @@ namespace _3_layer_shop.DAL.Migrations
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.Information", b =>
                 {
                     b.HasOne("_3_layer_shop.DAL.Entities.Abstract.Page", "Page")
-                        .WithMany()
-                        .HasForeignKey("PageId");
+                        .WithOne()
+                        .HasForeignKey("_3_layer_shop.DAL.Entities.Information", "PageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.Product", b =>
@@ -266,15 +271,19 @@ namespace _3_layer_shop.DAL.Migrations
                         .HasForeignKey("MainImageId");
 
                     b.HasOne("_3_layer_shop.DAL.Entities.Abstract.Page", "Page")
-                        .WithMany()
-                        .HasForeignKey("PageId");
+                        .WithOne()
+                        .HasForeignKey("_3_layer_shop.DAL.Entities.Product", "PageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.ProductCategory", b =>
                 {
                     b.HasOne("_3_layer_shop.DAL.Entities.Abstract.Page", "Page")
-                        .WithMany()
-                        .HasForeignKey("PageId");
+                        .WithOne()
+                        .HasForeignKey("_3_layer_shop.DAL.Entities.ProductCategory", "PageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.ProductToCategory", b =>
@@ -282,7 +291,7 @@ namespace _3_layer_shop.DAL.Migrations
                     b.HasOne("_3_layer_shop.DAL.Entities.ProductCategory", "ProductCategory")
                         .WithMany("ProductToCategories")
                         .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_layer_shop.DAL.Entities.Product", "Product")
@@ -297,13 +306,13 @@ namespace _3_layer_shop.DAL.Migrations
                     b.HasOne("_3_layer_shop.DAL.Entities.Product", "ProductChild")
                         .WithMany("ProductToProductsParents")
                         .HasForeignKey("ProductChildId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_layer_shop.DAL.Entities.Product", "ProductParent")
                         .WithMany("ProductToProductsChilds")
                         .HasForeignKey("ProductParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

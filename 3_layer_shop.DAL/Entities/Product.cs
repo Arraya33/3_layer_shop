@@ -16,7 +16,7 @@ namespace _3_layer_shop.DAL.Entities
         public int DiscountPrice { get; set; }
         public string IntroText { get; set; }
         public Image MainImage { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public ICollection<ImageToProduct> Images { get; set; }
         public int Quantity { get; set; }
         public ICollection<ProductToProduct> ProductToProductsParents { get; set; }
         public ICollection<ProductToProduct> ProductToProductsChilds { get; set; }

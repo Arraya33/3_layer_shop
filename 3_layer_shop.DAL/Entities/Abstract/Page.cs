@@ -10,6 +10,5 @@ namespace _3_layer_shop.DAL.Entities.Abstract
         public string Alias { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public BannerGroup BannerGroup { get; set; }
     }
 }

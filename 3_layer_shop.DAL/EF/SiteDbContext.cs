@@ -17,6 +17,7 @@ namespace _3_layer_shop.DAL.EF
         public DbSet<BannerGroup> BannerGroups { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Information> Informations { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
         public SiteDbContext(DbContextOptions<SiteDbContext> options) : base(options)
         {
@@ -35,6 +36,7 @@ namespace _3_layer_shop.DAL.EF
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new InformationConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageToProductConfiguration());
         }
 
         public class SiteDbContextFactory : IDesignTimeDbContextFactory<SiteDbContext>

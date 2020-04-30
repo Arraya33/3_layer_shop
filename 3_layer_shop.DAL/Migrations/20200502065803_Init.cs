@@ -20,6 +20,20 @@ namespace _3_layer_shop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Path = table.Column<string>(nullable: true),
+                    Alt = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pages",
                 columns: table => new
                 {
@@ -27,16 +41,52 @@ namespace _3_layer_shop.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Alias = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    BannerGroupId = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Banners",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    BannerGroupId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Banners", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pages_BannerGroups_BannerGroupId",
+                        name: "FK_Banners_BannerGroups_BannerGroupId",
                         column: x => x.BannerGroupId,
                         principalTable: "BannerGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Banners_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -83,28 +133,6 @@ namespace _3_layer_shop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Banners",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageId = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    BannerGroupId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Banners", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Banners_BannerGroups_BannerGroupId",
-                        column: x => x.BannerGroupId,
-                        principalTable: "BannerGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -122,6 +150,12 @@ namespace _3_layer_shop.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Products_Images_MainImageId",
+                        column: x => x.MainImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Products_Pages_PageId",
                         column: x => x.PageId,
                         principalTable: "Pages",
@@ -130,24 +164,27 @@ namespace _3_layer_shop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "ImagesToProducts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Path = table.Column<string>(nullable: true),
-                    Alt = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: true)
+                    ProductId = table.Column<int>(nullable: false),
+                    ImageId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_ImagesToProducts", x => new { x.ProductId, x.ImageId });
                     table.ForeignKey(
-                        name: "FK_Images_Products_ProductId",
+                        name: "FK_ImagesToProducts_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImagesToProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,9 +246,9 @@ namespace _3_layer_shop.DAL.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_ProductId",
-                table: "Images",
-                column: "ProductId");
+                name: "IX_ImagesToProducts_ImageId",
+                table: "ImagesToProducts",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Informations_PageId",
@@ -225,11 +262,6 @@ namespace _3_layer_shop.DAL.Migrations
                 column: "Alias",
                 unique: true,
                 filter: "[Alias] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pages_BannerGroupId",
-                table: "Pages",
-                column: "BannerGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_PageId",
@@ -257,36 +289,15 @@ namespace _3_layer_shop.DAL.Migrations
                 name: "IX_ProductsToProducts_ProductParentId",
                 table: "ProductsToProducts",
                 column: "ProductParentId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Banners_Images_ImageId",
-                table: "Banners",
-                column: "ImageId",
-                principalTable: "Images",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Images_MainImageId",
-                table: "Products",
-                column: "MainImageId",
-                principalTable: "Images",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Pages_BannerGroups_BannerGroupId",
-                table: "Pages");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_Images_MainImageId",
-                table: "Products");
-
             migrationBuilder.DropTable(
                 name: "Banners");
+
+            migrationBuilder.DropTable(
+                name: "ImagesToProducts");
 
             migrationBuilder.DropTable(
                 name: "Informations");
@@ -298,16 +309,19 @@ namespace _3_layer_shop.DAL.Migrations
                 name: "ProductsToProducts");
 
             migrationBuilder.DropTable(
-                name: "ProductCategories");
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "BannerGroups");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "ProductCategories");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Pages");

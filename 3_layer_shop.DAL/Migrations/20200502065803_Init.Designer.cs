@@ -10,7 +10,7 @@ using _3_layer_shop.DAL.EF;
 namespace _3_layer_shop.DAL.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    [Migration("20200429162225_Init")]
+    [Migration("20200502065803_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace _3_layer_shop.DAL.Migrations
                     b.Property<string>("Alias")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("BannerGroupId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,8 +42,6 @@ namespace _3_layer_shop.DAL.Migrations
                     b.HasIndex("Alias")
                         .IsUnique()
                         .HasFilter("[Alias] IS NOT NULL");
-
-                    b.HasIndex("BannerGroupId");
 
                     b.ToTable("Pages");
                 });
@@ -68,6 +63,9 @@ namespace _3_layer_shop.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -107,14 +105,24 @@ namespace _3_layer_shop.DAL.Migrations
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("_3_layer_shop.DAL.Entities.ImageToProduct", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "ImageId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("ImagesToProducts");
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.Information", b =>
@@ -230,11 +238,22 @@ namespace _3_layer_shop.DAL.Migrations
                     b.ToTable("ProductsToProducts");
                 });
 
-            modelBuilder.Entity("_3_layer_shop.DAL.Entities.Abstract.Page", b =>
+            modelBuilder.Entity("_3_layer_shop.DAL.Entities.Setting", b =>
                 {
-                    b.HasOne("_3_layer_shop.DAL.Entities.BannerGroup", "BannerGroup")
-                        .WithMany()
-                        .HasForeignKey("BannerGroupId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.Banner", b =>
@@ -248,11 +267,19 @@ namespace _3_layer_shop.DAL.Migrations
                         .HasForeignKey("ImageId");
                 });
 
-            modelBuilder.Entity("_3_layer_shop.DAL.Entities.Image", b =>
+            modelBuilder.Entity("_3_layer_shop.DAL.Entities.ImageToProduct", b =>
                 {
-                    b.HasOne("_3_layer_shop.DAL.Entities.Product", null)
+                    b.HasOne("_3_layer_shop.DAL.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("_3_layer_shop.DAL.Entities.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("_3_layer_shop.DAL.Entities.Information", b =>

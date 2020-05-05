@@ -20,5 +20,6 @@ namespace _3_layer_shop.DAL.Entities
         public int Quantity { get; set; }
         public ICollection<ProductToProduct> ProductToProductsParents { get; set; }
         public ICollection<ProductToProduct> ProductToProductsChilds { get; set; }
+        public DateTime DateAdded { get; set; }
     }
 }

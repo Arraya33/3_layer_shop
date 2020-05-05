@@ -28,7 +28,11 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult Product(string productAlias)
         {
             ProductPageDTO productPageDTO = _productService.GetProductPage(productAlias);
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductPageDTO, ProductPageViewModel>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
             ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productPageDTO);
 
             ViewBag.Title = model.Title;
@@ -43,7 +47,8 @@ namespace _3_layer_shop.WEB.Controllers
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
                 cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>(); 
-                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>(); 
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryPageDTO);
 
@@ -69,6 +74,7 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(discountProductsPageDTO);
 

@@ -26,6 +26,7 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 cfg.CreateMap<HomePageDTO, HomePageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             HomePageViewModel model = mapper.Map<HomePageViewModel>(homePageDTO);
 

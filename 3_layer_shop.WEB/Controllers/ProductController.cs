@@ -56,7 +56,8 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 CurrentPage = page,
                 ItemsPerPage = _pageSize,
-                TotalItems = productCategoryPageDTO.TotalItems
+                TotalItems = productCategoryPageDTO.TotalItems,
+                PageAction = "List"
             };
 
             model.PagingInfo = pagingInfo;
@@ -82,14 +83,14 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 CurrentPage = page, 
                 ItemsPerPage = _pageSize, 
-                TotalItems = discountProductsPageDTO.TotalItems
+                TotalItems = discountProductsPageDTO.TotalItems,
+                PageAction = "DiscountList"
             };
 
             model.PagingInfo = pagingInfo;
-            model.Name = "Товары со скидкой";
-            ViewBag.Title = "Товары со скидкой";
+            ViewBag.Title = model.Title;
 
-            return View(model);
+            return View("List", model);
         }
     }
 }

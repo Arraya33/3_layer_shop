@@ -24,7 +24,6 @@ namespace _3_layer_shop.WEB.TagHelpers
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
         public PagingInfo PageModel { get; set; }
-        public string PageAction { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -42,7 +41,7 @@ namespace _3_layer_shop.WEB.TagHelpers
                 else
                 {
                     TagBuilder link = new TagBuilder("a");
-                    link.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+                    link.Attributes["href"] = urlHelper.Action(PageModel.PageAction, new { page = i });
                     link.InnerHtml.Append(i.ToString() + ".");
                     item.InnerHtml.AppendHtml(link);
                 }

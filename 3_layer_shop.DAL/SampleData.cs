@@ -16,7 +16,7 @@ namespace _3_layer_shop.DAL
             if (!context.Products.Any())
             {
                 #region products-adding
-                Product product1 = new Product 
+                Product product1 = new Product
                 {
                     Name = "p1",
                     Page = new Page
@@ -31,6 +31,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 123,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 12,
+                    DateAdded = new DateTime(2015, 6, 17),
                     Images = new List<ImageToProduct> 
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod1" } },
@@ -55,6 +56,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 321,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 0,
+                    DateAdded = new DateTime(2015, 3, 12),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_1.jpg", Alt = "prod2" } },
@@ -79,6 +81,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 53,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 2,
+                    DateAdded = new DateTime(2015, 8, 1),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod3" } },
@@ -102,6 +105,7 @@ namespace _3_layer_shop.DAL
                     Price = 777,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 42,
+                    DateAdded = new DateTime(2016, 5, 30),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod4" } },
@@ -126,6 +130,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 23,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 0,
+                    DateAdded = new DateTime(2016, 1, 8),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod5" } },
@@ -149,6 +154,7 @@ namespace _3_layer_shop.DAL
                     Price = 999,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 4,
+                    DateAdded = new DateTime(2017, 4, 21),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod6" } },
@@ -173,6 +179,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 32,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 0,
+                    DateAdded = new DateTime(2015, 9, 22),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod7" } },
@@ -197,6 +204,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 51,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 10,
+                    DateAdded = new DateTime(2016, 11, 5),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod8" } },
@@ -220,6 +228,7 @@ namespace _3_layer_shop.DAL
                     Price = 111,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 0,
+                    DateAdded = new DateTime(2014, 9, 17),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_2.jpg", Alt = "prod9" } },
@@ -244,6 +253,7 @@ namespace _3_layer_shop.DAL
                     DiscountPrice = 81,
                     IntroText = "product description product description product description product description product description",
                     Quantity = 8,
+                    DateAdded = new DateTime(2017, 2, 21),
                     Images = new List<ImageToProduct>
                     {
                         new ImageToProduct { Image = new Image { Path = "/images/product_1.jpg", Alt = "prod10" } },

@@ -20,7 +20,7 @@ namespace _3_layer_shop.BLL.Services
             products.Add(new ProductPageDTO { MainImage = new ImageDTO { Path = "/images/product_7.jpg", Alt = "product_7" }, Name = "Product7", Alias = "product_7", Price = 234, DiscountPrice = 55 });
             products.Add(new ProductPageDTO { MainImage = new ImageDTO { Path = "/images/product_8.jpg", Alt = "product_8" }, Name = "Product8", Alias = "product_8", Price = 111 });
 
-            HomePageDTO homePage = new HomePageDTO { Products = products, BannerGroupId = 3, Title = "Главная" };
+            HomePageDTO homePage = new HomePageDTO { Products = products, Title = "Главная" };
 
             return homePage;
         }

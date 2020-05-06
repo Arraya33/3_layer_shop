@@ -22,10 +22,12 @@ namespace _3_layer_shop.WEB.Components
         public IViewComponentResult Invoke(int bannerGroupId)
         {
             BannerGroupDTO bannerGroupDTO = _bannerService.GetBannerGroup(bannerGroupId);
+
             IMapper mapper = new MapperConfiguration(cfg => 
             {
                 cfg.CreateMap<BannerGroupDTO, BannerGroupViewModel>();
                 cfg.CreateMap<BannerDTO, BannerViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             BannerGroupViewModel model = mapper.Map<BannerGroupViewModel>(bannerGroupDTO);
 

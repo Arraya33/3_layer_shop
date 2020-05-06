@@ -22,6 +22,10 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult Index()
         {
             HomePageDTO homePageDTO = _commonService.GetHomePage();
+
+            if (homePageDTO == null)
+                return NotFound();
+
             IMapper mapper = new MapperConfiguration(cfg => 
             {
                 cfg.CreateMap<HomePageDTO, HomePageViewModel>();

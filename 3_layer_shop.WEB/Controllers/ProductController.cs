@@ -29,6 +29,10 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult Product(string productAlias)
         {
             ProductPageDTO productPageDTO = _productService.GetProductPage(productAlias);
+
+            if (productPageDTO == null)
+                return NotFound();
+
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
@@ -44,6 +48,9 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult List(string categoryAlias, int page = 1)
         {
             ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize, ProductOrderType.Name);
+
+            if (productCategoryPageDTO == null)
+                return NotFound();
 
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
@@ -70,6 +77,9 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult DiscountList(int page = 1)
         {
             ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize, ProductOrderType.Name);
+
+            if (discountProductsPageDTO == null)
+                return NotFound();
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {

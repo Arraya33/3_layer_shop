@@ -22,6 +22,10 @@ namespace _3_layer_shop.WEB.Controllers
         public ActionResult Article(string articleAlias)
         {
             InformationPageDTO informationPageDTO = _informationService.GetArticlePage(articleAlias);
+
+            if (informationPageDTO == null)
+                return NotFound();
+
             IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<InformationPageDTO, InformationPageViewModel>()).CreateMapper();
             InformationPageViewModel model = mapper.Map<InformationPageViewModel>(informationPageDTO);
 

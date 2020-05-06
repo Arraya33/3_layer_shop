@@ -39,5 +39,12 @@ namespace _3_layer_shop.BLL.Services
 
             return bannerGroupDTO;
         }
+
+        public BannerGroupDTO GetHomeBannerGroup()
+        {
+            int.TryParse(_dbContext.Settings.FirstOrDefault(s => s.Key == "HomeSliderId").Value, out int bannerGroupId);
+
+            return GetBannerGroup(bannerGroupId);
+        }
     }
 }

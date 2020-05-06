@@ -1,11 +1,7 @@
 ﻿@model HomePageViewModel
 <!-- Home -->
 
-<div class="home">
-    <div class="home_slider_container">
-        <vc:home-slider banner-group-id="@ViewBag.HomeBannerGroupId"/>
-    </div>
-</div>
+<vc:slider banner-group="@ViewBag.HomeBannerGroup" />
 
 <!-- Products -->
 
@@ -14,10 +10,10 @@
         <div class="row">
             <div class="col">
                 <div class="product_grid">
-                    @foreach(ProductPageViewModel product in Model.Products)
+                    @foreach (ProductPageViewModel product in Model.Products)
                     {
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
-                    }                   
+                    }
                 </div>
             </div>
         </div>

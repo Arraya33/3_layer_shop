@@ -8,5 +8,6 @@ namespace _3_layer_shop.BLL.Interfaces
     public interface IBannerService
     {
         public BannerGroupDTO GetBannerGroup(int bannerGroupId);
+        public BannerGroupDTO GetHomeBannerGroup();
     }
 }

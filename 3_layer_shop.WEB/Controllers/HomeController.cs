@@ -33,6 +33,7 @@ namespace _3_layer_shop.WEB.Controllers
                 ?? new HomePageViewModel { Title = "Главная страница", Products = new List<ProductPageViewModel>() };
 
             ViewBag.Title = model.Title;
+            ViewBag.HomeBannerGroupId = _commonService.GetHomeBannerGroupId();
 
             return View(model);
         }

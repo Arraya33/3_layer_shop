@@ -1,11 +1,13 @@
 ﻿@model BannerGroupViewModel
 
+@if (Model == null)
+    return;
 <!-- Home Slider -->
     <div class="owl-carousel owl-theme home_slider">
         @foreach (BannerViewModel banner in Model.Banners)
         {
             <div class="owl-item home_slider_item">
-                <div class="home_slider_background" style="background-image:url(@banner.Image)"></div>
+                <div class="home_slider_background" style="background-image:url(@banner.Image.Path)"></div>
                 <div class="home_slider_content_container">
                     <div class="container">
                         <div class="row">

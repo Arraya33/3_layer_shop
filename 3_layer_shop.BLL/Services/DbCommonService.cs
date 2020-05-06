@@ -36,5 +36,11 @@ namespace _3_layer_shop.BLL.Services
 
             return homePage;
         }
+
+        public int GetHomeBannerGroupId()
+        {
+            int.TryParse(_dbContext.Settings.FirstOrDefault(s => s.Key == "HomeSliderId")?.Value ?? "0", out int groupId);
+            return groupId;
+        }
     }
 }

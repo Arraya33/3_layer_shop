@@ -30,7 +30,7 @@ namespace _3_layer_shop.BLL.Services
                 .Include(p => p.ProductToProductsChilds).ThenInclude(ptp => ptp.ProductChild).ThenInclude(p => p.Page)
                 .FirstOrDefault(p => p.Page.Alias == productAlias);
 
-            if (product == null)
+            if (product == null || product.Page == null)
             {
                 return null;
             }
@@ -71,10 +71,11 @@ namespace _3_layer_shop.BLL.Services
             ProductCategory productCategory = _dbContext.ProductCategories.Include(pc => pc.Page)
                 .FirstOrDefault(pc => pc.Page.Alias == categoryAlias);
 
-            if (productCategory == null)
+            if (productCategory == null || productCategory.Page == null)
             {
                 return null;
             }
+
             //выполняется в отдельном зпросе так как невозможно сортировать и выборочно получать продукты в запросе, получающем категорию товаров
             IEnumerable<Product> products = _dbContext.Entry(productCategory).Collection(pc => pc.ProductToCategories).Query()
                 .Include(ptc => ptc.Product).ThenInclude(p => p.MainImage).Include(ptc => ptc.Product).ThenInclude(p => p.Page)

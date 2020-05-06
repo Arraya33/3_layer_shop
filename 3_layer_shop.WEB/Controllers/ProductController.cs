@@ -1,4 +1,5 @@
 ﻿using _3_layer_shop.BLL.DTO;
+using _3_layer_shop.BLL.Enums;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.WEB.Models;
 using _3_layer_shop.WEB.Models.ViewModels;
@@ -42,11 +43,11 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult List(string categoryAlias, int page = 1)
         {
-            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize);
+            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize, ProductOrderType.Name);
 
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
-                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>(); 
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
                 cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
@@ -61,7 +62,6 @@ namespace _3_layer_shop.WEB.Controllers
             };
 
             model.PagingInfo = pagingInfo;
-
             ViewBag.Title = model.Title;
 
             return View(model);
@@ -69,7 +69,7 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult DiscountList(int page = 1)
         {
-            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize);
+            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize, ProductOrderType.Name);
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {

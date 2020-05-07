@@ -21,6 +21,7 @@ namespace _3_layer_shop.DAL.EF
 
         public SiteDbContext(DbContextOptions<SiteDbContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

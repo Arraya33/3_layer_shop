@@ -30,6 +30,7 @@ namespace _3_layer_shop.WEB.Controllers
             InformationPageViewModel model = mapper.Map<InformationPageViewModel>(informationPageDTO);
 
             ViewBag.Title = model.Title;
+            ViewBag.SingleBanner = new BannerViewModel { Description = "ewrwe werwerw", Title = "titleee", Image = new ImageViewModel { Path = "/images/avds_xl.jpg" }, Link = "https://www.google.com" };
 
             return View(model);
         }

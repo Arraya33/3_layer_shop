@@ -46,6 +46,7 @@ namespace _3_layer_shop.WEB.Controllers
 
             ViewBag.Title = model.Title;
             ViewBag.HomeBannerGroup = bannerGroup;
+            ViewBag.SingleBanner = new BannerViewModel {Description = "ewrwe werwerw", Title = "titleee", Image = new ImageViewModel { Path = "/images/avds_xl.jpg" }, Link ="https://www.google.com" };
 
             return View(model);
         }

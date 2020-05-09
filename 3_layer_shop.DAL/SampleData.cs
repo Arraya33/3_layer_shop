@@ -468,8 +468,8 @@ namespace _3_layer_shop.DAL
                 #region settings-adding
                 context.SaveChanges();
                 Setting homeSliderSet = new Setting { Key = "HomeSliderId", Value = context.BannerGroups.FirstOrDefault(bg => bg == bannerGroup1).Id.ToString() };
-                Setting singleBanner1Set = new Setting { Key = "singleBanner1Id", Value = context.Banners.FirstOrDefault(b => b == banner4).Id.ToString() };
-                Setting singleBanner2Set = new Setting { Key = "singleBanner2Id", Value = context.Banners.FirstOrDefault(b => b == banner5).Id.ToString() };
+                Setting singleBanner1Set = new Setting { Key = "BigBannerId", Value = context.Banners.FirstOrDefault(b => b == banner4).Id.ToString() };
+                Setting singleBanner2Set = new Setting { Key = "SmallBannerId", Value = context.Banners.FirstOrDefault(b => b == banner5).Id.ToString() };
 
                 context.Settings.AddRange(homeSliderSet, singleBanner1Set, singleBanner2Set);
                 #endregion

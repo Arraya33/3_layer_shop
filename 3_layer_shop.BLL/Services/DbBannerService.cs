@@ -40,11 +40,24 @@ namespace _3_layer_shop.BLL.Services
             return bannerGroupDTO;
         }
 
-        public BannerGroupDTO GetHomeBannerGroup()
+        public BannerDTO GetBanner(int bannerId)
         {
-            int.TryParse(_dbContext.Settings.FirstOrDefault(s => s.Key == "HomeSliderId").Value, out int bannerGroupId);
+            Banner banner = _dbContext.Banners.Include(bg => bg.Image).FirstOrDefault(b => b.Id == bannerId);
 
-            return GetBannerGroup(bannerGroupId);
+            if (banner == null)
+            {
+                return null;
+            }
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Banner, BannerDTO>();
+                cfg.CreateMap<Image, ImageDTO>();
+            }).CreateMapper();
+
+            BannerDTO bannerDTO = mapper.Map<BannerDTO>(banner);
+
+            return bannerDTO;
         }
     }
 }

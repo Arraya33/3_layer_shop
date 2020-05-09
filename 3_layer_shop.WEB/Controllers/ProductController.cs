@@ -15,15 +15,21 @@ namespace _3_layer_shop.WEB.Controllers
 {
     public class ProductController : Controller
     {
-        readonly IProductService _productService;
-        readonly IConfiguration _configuration;
+        private ICommonService _commonService;
+        private IProductService _productService;
+        private IConfiguration _configuration;
+        private IBannerService _bannerService;
+        private IDictionary<string, string> _siteSettings;
         int _pageSize;
 
-        public ProductController(IConfiguration configuration, IProductService productService)
+        public ProductController(IConfiguration configuration, IProductService productService, ICommonService commonService, IBannerService bannerService)
         {
             _configuration = configuration;
             _productService = productService;
+            _commonService = commonService;
+            _bannerService = bannerService;
             _pageSize = _configuration.GetValue<int>("PageSize");
+            _siteSettings = _commonService.GetSiteSettings();
         }
 
         public ActionResult Product(string productAlias)
@@ -39,6 +45,20 @@ namespace _3_layer_shop.WEB.Controllers
                 cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productPageDTO);
+
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
 
             ViewBag.Title = model.Title;
 
@@ -68,9 +88,22 @@ namespace _3_layer_shop.WEB.Controllers
                 PageAction = "List"
             };
 
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
+
             model.PagingInfo = pagingInfo;
             ViewBag.Title = model.Title;
-            ViewBag.SingleBanner = new BannerViewModel { Description = "ewrwe werwerw", Title = "titleee", Image = new ImageViewModel { Path = "/images/avds_xl.jpg" }, Link = "https://www.google.com" };
 
             return View(model);
         }
@@ -98,9 +131,22 @@ namespace _3_layer_shop.WEB.Controllers
                 PageAction = "DiscountList"
             };
 
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
+
             model.PagingInfo = pagingInfo;
             ViewBag.Title = model.Title;
-            ViewBag.SingleBanner = new BannerViewModel { Description = "ewrwe werwerw", Title = "titleee", Image = new ImageViewModel { Path = "/images/avds_xl.jpg" }, Link = "https://www.google.com" };
 
             return View("List", model);
         }

@@ -12,13 +12,15 @@ namespace _3_layer_shop.WEB.Controllers
 {
     public class HomeController : Controller
     {
-        ICommonService _commonService;
-        IBannerService _bannerService;
+        private ICommonService _commonService;
+        private IBannerService _bannerService;
+        private IDictionary<string, string> _siteSettings;
 
         public HomeController(ICommonService commonService, IBannerService bannerService)
         {
             _commonService = commonService;
             _bannerService = bannerService;
+            _siteSettings = _commonService.GetSiteSettings();
         }
 
         public ActionResult Index()
@@ -34,20 +36,38 @@ namespace _3_layer_shop.WEB.Controllers
             HomePageViewModel model = HomePageMapper.Map<HomePageViewModel>(homePageDTO) 
                 ?? new HomePageViewModel { Title = "Главная страница", Products = new List<ProductPageViewModel>() };
 
-            BannerGroupDTO bannerGroupDTO = _bannerService.GetHomeBannerGroup();
+            if (_siteSettings.TryGetValue("HomeSliderId", out string bannerGroupIdString))
+                if ( int.TryParse(bannerGroupIdString, out int bannerGroupId))
+                {
+                    BannerGroupDTO bannerGroupDTO = _bannerService.GetBannerGroup(bannerGroupId);
 
-            IMapper BannerGroupMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<BannerGroupDTO, BannerGroupViewModel>();
-                cfg.CreateMap<BannerDTO, BannerViewModel>();
-                cfg.CreateMap<ImageDTO, ImageViewModel>();
-            }).CreateMapper();
-            BannerGroupViewModel bannerGroup = BannerGroupMapper.Map<BannerGroupViewModel>(bannerGroupDTO);
+                    IMapper BannerGroupMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerGroupDTO, BannerGroupViewModel>();
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerGroupViewModel bannerGroup = BannerGroupMapper.Map<BannerGroupViewModel>(bannerGroupDTO);
+                    ViewBag.HomeBannerGroup = bannerGroup;
+                }
+
+
+            if (_siteSettings.TryGetValue("SmallBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
 
             ViewBag.Title = model.Title;
-            ViewBag.HomeBannerGroup = bannerGroup;
-            ViewBag.SingleBanner = new BannerViewModel {Description = "ewrwe werwerw", Title = "titleee", Image = new ImageViewModel { Path = "/images/avds_xl.jpg" }, Link ="https://www.google.com" };
-
+            
             return View(model);
         }
     }

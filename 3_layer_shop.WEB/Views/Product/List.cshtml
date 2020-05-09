@@ -1,9 +1,7 @@
 ﻿@model ProductListPageViewModel
 <!-- Home -->
 
-<div class="home">
-    <partial name="Partials/Banners/SingleBanner2Partial" />
-</div>
+<vc:banner banner="@ViewBag.SingleBanner" banner-type=@BannerType.Big />
 
 <div class="container">
     <div class="row">
@@ -47,7 +45,7 @@
                         <partial name="Partials/Product/ProductCardPartial" model="product" />
                     }
                 </div>
-                <div class="product_pagination" page-model="Model.PagingInfo" page-action="List"></div>
+                <div class="product_pagination" page-model="Model.PagingInfo"></div>
             </div>
         </div>
     </div>

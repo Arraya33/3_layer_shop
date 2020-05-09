@@ -1,0 +1,22 @@
+﻿@model BannerViewModel
+
+@if (Model == null || Model.Image == null)
+    return;
+
+<div class="home">
+    <div class="home_container">
+        <div class="home_background" style="background-image:url(@Model.Image.Path)"></div>
+        <div class="home_content_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="home_content">
+                            <div class="home_title">@Model.Title<span>.</span></div>
+                            <div class="home_text"><p>@Model.Description</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

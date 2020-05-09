@@ -1,9 +1,7 @@
 ﻿@model InformationPageViewModel
 <!-- Home -->
 
-<div class="home">
-    <partial name="Partials/Banners/SingleBanner2Partial" />
-</div>
+<vc:banner banner="@ViewBag.SingleBanner" banner-type=@BannerType.Big />
 
 <div class="container">
     <div class="row">

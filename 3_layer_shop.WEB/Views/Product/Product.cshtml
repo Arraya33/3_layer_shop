@@ -1,9 +1,7 @@
 ﻿@model ProductPageViewModel
 <!-- Home -->
 
-<div class="home">
-    <partial name="Partials/Banners/SingleBanner2Partial" />
-</div>
+<vc:banner banner="@ViewBag.SingleBanner" banner-type=@BannerType.Big />
 
 <!-- Product Details -->
 
@@ -15,17 +13,17 @@
             <div class="col-lg-6">
                 <div class="details_image">
                     <div class="details_image_large">
-                        <img src="@Model.MainImage" alt="@Model.Name">
+                        <img src="@Model.MainImage.Path" alt="@Model.MainImage.Alt">
                         @if (Model.DiscountPrice > 0)
                         {
                             <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>
                         }
                     </div>
                     <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-                        <div class="details_image_thumbnail active" data-image="@Model.MainImage"><img src="@Model.MainImage" alt="@Model.Name"></div>
-                        @foreach (string image in Model.Images)
+                        <div class="details_image_thumbnail active" data-image="@Model.MainImage.Path"><img src="@Model.MainImage.Path" alt="@Model.MainImage.Alt"></div>
+                        @foreach (ImageViewModel image in Model.Images)
                         {
-                            <div class="details_image_thumbnail" data-image="@image"><img src="@image" alt="@Model.Name"></div>
+                            <div class="details_image_thumbnail" data-image="@image.Path"><img src="@image.Path" alt="@image.Alt"></div>
                         }
                     </div>
                 </div>

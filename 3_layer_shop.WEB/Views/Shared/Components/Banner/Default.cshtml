@@ -1,0 +1,21 @@
+﻿@model BannerViewModel
+
+@if (Model == null || Model.Image == null)
+    return;
+
+<div class="avds_xl">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="avds_xl_container clearfix">
+                    <div class="avds_xl_background" style="background-image:url(@Model.Image.Path)"></div>
+                    <div class="avds_xl_content">
+                        <div class="avds_title">@Model.Title</div>
+                        <div class="avds_text">@Model.Description</div>
+                        <div class="avds_link avds_xl_link"><a href="@Model.Link">See More</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

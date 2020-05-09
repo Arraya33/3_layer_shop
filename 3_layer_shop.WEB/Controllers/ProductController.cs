@@ -1,4 +1,5 @@
 ﻿using _3_layer_shop.BLL.DTO;
+using _3_layer_shop.BLL.Enums;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.WEB.Models;
 using _3_layer_shop.WEB.Models.ViewModels;
@@ -14,22 +15,50 @@ namespace _3_layer_shop.WEB.Controllers
 {
     public class ProductController : Controller
     {
-        readonly IProductService _productService;
-        readonly IConfiguration _configuration;
+        private ICommonService _commonService;
+        private IProductService _productService;
+        private IConfiguration _configuration;
+        private IBannerService _bannerService;
+        private IDictionary<string, string> _siteSettings;
         int _pageSize;
 
-        public ProductController(IConfiguration configuration, IProductService productService)
+        public ProductController(IConfiguration configuration, IProductService productService, ICommonService commonService, IBannerService bannerService)
         {
             _configuration = configuration;
             _productService = productService;
+            _commonService = commonService;
+            _bannerService = bannerService;
             _pageSize = _configuration.GetValue<int>("PageSize");
+            _siteSettings = _commonService.GetSiteSettings();
         }
 
         public ActionResult Product(string productAlias)
         {
             ProductPageDTO productPageDTO = _productService.GetProductPage(productAlias);
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductPageDTO, ProductPageViewModel>()).CreateMapper();
+
+            if (productPageDTO == null)
+                return NotFound();
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
             ProductPageViewModel model = mapper.Map<ProductPageViewModel>(productPageDTO);
+
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
 
             ViewBag.Title = model.Title;
 
@@ -38,12 +67,16 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult List(string categoryAlias, int page = 1)
         {
-            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize);
+            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryAlias, page, _pageSize, ProductOrderType.Name);
+
+            if (productCategoryPageDTO == null)
+                return NotFound();
 
             IMapper mapper = new MapperConfiguration(cfg => 
             { 
-                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>(); 
-                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>(); 
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryPageDTO);
 
@@ -51,11 +84,25 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 CurrentPage = page,
                 ItemsPerPage = _pageSize,
-                TotalItems = productCategoryPageDTO.TotalItems
+                TotalItems = productCategoryPageDTO.TotalItems,
+                PageAction = "List"
             };
 
-            model.PagingInfo = pagingInfo;
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
 
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
+
+            model.PagingInfo = pagingInfo;
             ViewBag.Title = model.Title;
 
             return View(model);
@@ -63,12 +110,16 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult DiscountList(int page = 1)
         {
-            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize);
+            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize, ProductOrderType.Name);
+
+            if (discountProductsPageDTO == null)
+                return NotFound();
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(discountProductsPageDTO);
 
@@ -76,14 +127,28 @@ namespace _3_layer_shop.WEB.Controllers
             {
                 CurrentPage = page, 
                 ItemsPerPage = _pageSize, 
-                TotalItems = discountProductsPageDTO.TotalItems
+                TotalItems = discountProductsPageDTO.TotalItems,
+                PageAction = "DiscountList"
             };
 
-            model.PagingInfo = pagingInfo;
-            model.Name = "Товары со скидкой";
-            ViewBag.Title = "Товары со скидкой";
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
 
-            return View(model);
+                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
+
+            model.PagingInfo = pagingInfo;
+            ViewBag.Title = model.Title;
+
+            return View("List", model);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _3_layer_shop.BLL.DTO;
+﻿using _3_layer_shop.BLL.Abstract;
+using _3_layer_shop.BLL.DTO;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.WEB.Models.ViewModels;
 using AutoMapper;
@@ -27,14 +28,14 @@ namespace _3_layer_shop.WEB.Controllers
         {
             HomePageDTO homePageDTO = _commonService.GetHomePage();
 
-            IMapper HomePageMapper = new MapperConfiguration(cfg => 
+            IMapper homePageMapper = new MapperConfiguration(cfg => 
             {
                 cfg.CreateMap<HomePageDTO, HomePageViewModel>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
                 cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
-            HomePageViewModel model = HomePageMapper.Map<HomePageViewModel>(homePageDTO) 
-                ?? new HomePageViewModel { Title = "Главная страница", Products = new List<ProductPageViewModel>() };
+            HomePageViewModel model = homePageMapper.Map<HomePageViewModel>(homePageDTO) 
+                ?? new HomePageViewModel { Title = "Главная страница" };
 
             if (_siteSettings.TryGetValue("HomeSliderId", out string bannerGroupIdString))
                 if ( int.TryParse(bannerGroupIdString, out int bannerGroupId))

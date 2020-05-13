@@ -1,6 +1,7 @@
 ﻿using _3_layer_shop.BLL.Abstract;
 using _3_layer_shop.BLL.DTO;
 using _3_layer_shop.BLL.Interfaces;
+using _3_layer_shop.WEB.Models;
 using _3_layer_shop.WEB.Models.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,23 @@ namespace _3_layer_shop.WEB.Controllers
                     ViewBag.SingleBanner = banner;
                 }
 
-            return View();
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CartLineDTO, CartLine>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+            IList<CartLine> cartLines = mapper.Map<IList<CartLine>>(_cart.CartLines);
+
+            CheckoutViewModel model = new CheckoutViewModel { CartLines = cartLines, TotalValue = _cart.TotalValue };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Checkout(CheckoutViewModel checkoutViewModel)
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -51,12 +51,12 @@ namespace _3_layer_shop.WEB.Controllers
                 {
                     BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
 
-                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {
                         cfg.CreateMap<BannerDTO, BannerViewModel>();
                         cfg.CreateMap<ImageDTO, ImageViewModel>();
                     }).CreateMapper();
-                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    BannerViewModel banner = bannerMapper.Map<BannerViewModel>(bannerDTO);
                     ViewBag.SingleBanner = banner;
                 }
 
@@ -93,12 +93,12 @@ namespace _3_layer_shop.WEB.Controllers
                 {
                     BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
 
-                    IMapper BannerMapper = new MapperConfiguration(cfg =>
+                    IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {
                         cfg.CreateMap<BannerDTO, BannerViewModel>();
                         cfg.CreateMap<ImageDTO, ImageViewModel>();
                     }).CreateMapper();
-                    BannerViewModel banner = BannerMapper.Map<BannerViewModel>(bannerDTO);
+                    BannerViewModel banner = bannerMapper.Map<BannerViewModel>(bannerDTO);
                     ViewBag.SingleBanner = banner;
                 }
 

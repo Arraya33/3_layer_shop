@@ -1,0 +1,136 @@
+﻿@model CartViewModel
+
+    <vc:banner banner="@ViewBag.SingleBanner" banner-type=@BannerType.Big />
+
+
+@if (Model.CartLines.Any())
+{
+
+    <!-- Cart Info -->
+
+    <div class="cart_info">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!-- Column Titles -->
+                    <div class="cart_info_columns clearfix">
+                        <div class="cart_info_col cart_info_col_product">Product</div>
+                        <div class="cart_info_col cart_info_col_price">Price</div>
+                        <div class="cart_info_col cart_info_col_quantity">Quantity</div>
+                        <div class="cart_info_col cart_info_col_total">Total</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row cart_items_row">
+                <div class="col">
+                    <form asp-action="UpdateCart" method="post" id="cart_form">
+                        @for (int i = 0; i < Model.CartLines.Count; i++)
+                        {
+                            if (@Model.CartLines[i].Product != null)
+                            {
+                                <!-- Cart Item -->
+                                <input type="hidden" asp-for="@Model.CartLines[i].Product.Id" />
+                                <div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+                                    <!-- Name -->
+                                    <div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_item_image">
+                                            <div><img src="@Model.CartLines[i].Product.MainImage?.Path" alt="@Model.CartLines[i].Product.MainImage?.Alt"></div>
+                                        </div>
+                                        <div class="cart_item_name_container">
+                                            <div class="cart_item_name">
+                                                <a asp-controller="Product" asp-action="Product" asp-route-productAlias="@Model.CartLines[i].Product.Alias">@Model.CartLines[i].Product.Name</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Price -->
+                                    @if (@Model.CartLines[i].Product.DiscountPrice > 0)
+                                    {
+                                        <div class="cart_item_price">$@Model.CartLines[i].Product.DiscountPrice</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="cart_item_price">$@Model.CartLines[i].Product.Price</div>
+                                    }
+                                    <!-- Quantity -->
+                                    <div class="cart_item_quantity">
+                                        <div class="product_quantity_container">
+                                            <div class="product_quantity clearfix">
+                                                <span>Qty</span>
+                                                <input asp-for="@Model.CartLines[i].Quantity" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Total -->
+                                    @if (@Model.CartLines[i].Product.DiscountPrice > 0)
+                                    {
+                                        int sum = Model.CartLines[i].Product.DiscountPrice * Model.CartLines[i].Quantity;
+
+                                        <div class="cart_item_total">$@sum</div>
+                                    }
+                                    else
+                                    {
+                                        int sum = Model.CartLines[i].Product.Price * Model.CartLines[i].Quantity;
+                                        <div class="cart_item_total">$@sum</div>
+                                    }
+                                </div>
+                            }
+                        }
+                    </form>
+                </div>
+            </div>
+            <div class="row row_cart_buttons">
+                <div class="col">
+                    <div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
+                        <div class="button continue_shopping_button"><a asp-controller="Home" asp-action="Index">Continue shopping</a></div>
+                        <div class="cart_buttons_right ml-lg-auto">
+                            <div class="button clear_cart_button"><a asp-action="Clear">Clear cart</a></div>
+                            <div class="button update_cart_button"><a href="#" id="update_cart_btn">Update cart</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row_extra">
+                <div class="col-lg-6">
+                    <div class="cart_total">
+                        <div class="section_title">Cart total</div>
+                        <div class="section_subtitle">Final info</div>
+                        <div class="cart_total_container">
+                            <ul>
+                                <li class="d-flex flex-row align-items-center justify-content-start">
+                                    <div class="cart_total_title">Total</div>
+                                    <div class="cart_total_value ml-auto">$@Model.TotalValue</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button checkout_button"><a href="#">Proceed to checkout</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Корзина пуста.</p>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/styles/cart.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/cart_responsive.css">
+}
+
+@section Scripts {
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/cart.js"></script>
+    <script>
+        $("#update_cart_btn").click(function (event) { event.preventDefault(); $("#cart_form").submit(); });
+    </script>
+}

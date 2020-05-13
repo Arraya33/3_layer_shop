@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -1026,7 +1026,7 @@ section
 .product_quantity input
 {
 	display: block;
-	width: 30px;
+	width: 50px;
 	height: 57px;
 	border: none;
 	outline: none;

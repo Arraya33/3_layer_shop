@@ -9,7 +9,8 @@ namespace _3_layer_shop.BLL.Abstract
     public abstract class Cart
     {
         public ICollection<CartLineDTO> CartLines { get; } = new List<CartLineDTO>();
-        public int TotalValue { get => CartLines.Sum(cl => cl.Product.DiscountPrice > 0 ? cl.Product.DiscountPrice : cl.Product.Price * cl.Quantity); }
+        public int TotalValue { get => CartLines.Sum(cl => cl.Product.DiscountPrice > 0 ? 
+            cl.Product.DiscountPrice * cl.Quantity : cl.Product.Price * cl.Quantity); }
         public int TotalQuantity { get => CartLines.Sum(e => e.Quantity); }
 
         public virtual void AddItem(ProductPageDTO product, int quantity)

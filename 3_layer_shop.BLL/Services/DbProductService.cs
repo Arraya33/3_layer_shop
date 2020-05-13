@@ -51,6 +51,21 @@ namespace _3_layer_shop.BLL.Services
             return productDTO;
         }
 
+        public ProductPageDTO GetProduct(int productId)
+        {
+            Product product = _dbContext.Products.Include(p => p.MainImage).Include(p => p.Page).FirstOrDefault(p => p.Id == productId);
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductPageDTO>()
+                    .ForMember(prodDTO => prodDTO.Alias, opt => opt.MapFrom(prod => prod.Page.Alias));
+                cfg.CreateMap<Image, ImageDTO>();
+            }).CreateMapper();
+            ProductPageDTO productDTO = mapper.Map<ProductPageDTO>(product);
+
+            return productDTO;
+        }
+
         public ProductCategoryPageDTO GetProductCategoryPage(string categoryAlias, int pageNumber, int pageSize, ProductOrderType orderType)
         {
             Expression<Func<Product, object>> orderExp;

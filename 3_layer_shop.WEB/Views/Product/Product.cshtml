@@ -61,7 +61,7 @@
                         @Html.Raw(Model.IntroText)
                     </div>
                     <form id="add_to_cart_form" method="post" asp-controller="Cart" asp-action="AddToCart">
-                        <input type="hidden" name="alias" value="@Model.Alias" />
+                        <input type="hidden" name="productId" value="@Model.Id" />
                         <!-- Product Quantity -->
                         <div class="product_quantity_container">
                             <div class="product_quantity clearfix">

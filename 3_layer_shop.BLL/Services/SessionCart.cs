@@ -25,6 +25,12 @@ namespace _3_layer_shop.BLL.Services
             Session.SetString("Cart", JsonConvert.SerializeObject(this));
         }
 
+        public override void UpdateCart(ICollection<CartLineDTO> changedLines)
+        {
+            base.UpdateCart(changedLines);
+            Session.SetString("Cart", JsonConvert.SerializeObject(this));
+        }
+
         public override void Clear()
         {
             base.Clear();

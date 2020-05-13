@@ -28,6 +28,7 @@ namespace _3_layer_shop.WEB.Components
                 cfg.CreateMap<Cart, CartViewModel>();
                 cfg.CreateMap<CartLineDTO, CartLine>();
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
             CartViewModel model = mapper.Map<CartViewModel>(_cart);
 

@@ -15,14 +15,35 @@ namespace _3_layer_shop.BLL.Abstract
         public virtual void AddItem(ProductPageDTO product, int quantity)
         {
             CartLineDTO cartLine = CartLines.FirstOrDefault(cl => cl.Product.Id == product.Id);
+            if(quantity > 0)
+            {
+                if (cartLine == null)
+                {
+                    CartLines.Add(new CartLineDTO { Product = product, Quantity = quantity });
+                }
+                else
+                {
+                    cartLine.Quantity += quantity;
+                }
+            }           
+        }
 
-            if(cartLine == null)
+        public virtual void UpdateCart(ICollection<CartLineDTO> changedLines)
+        {
+            foreach (CartLineDTO changedLine in changedLines)
             {
-                CartLines.Add(new CartLineDTO { Product = product, Quantity = quantity });
-            }
-            else
-            {
-                cartLine.Quantity += quantity;
+                CartLineDTO cartLine = CartLines.FirstOrDefault(cl => cl.Product.Id == changedLine.Product.Id);
+                if (cartLine != null)
+                {
+                    if (changedLine.Quantity == 0)
+                    {
+                        CartLines.Remove(cartLine);                       
+                    }
+                    else if (changedLine.Quantity > 0)
+                    {
+                        cartLine.Quantity = changedLine.Quantity;
+                    }
+                }
             }
         }
 

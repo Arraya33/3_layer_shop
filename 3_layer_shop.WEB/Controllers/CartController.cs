@@ -81,9 +81,9 @@ namespace _3_layer_shop.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddToCart(string alias, int quantity)
+        public ActionResult AddToCart(int productId, int quantity)
         {
-            ProductPageDTO product = _productService.GetProductPage(alias);
+            ProductPageDTO product = _productService.GetProduct(productId);
             _cart.AddItem(product, quantity);
 
             return RedirectToAction("Index", "Home");

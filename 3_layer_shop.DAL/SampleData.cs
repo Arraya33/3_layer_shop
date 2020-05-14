@@ -474,6 +474,13 @@ namespace _3_layer_shop.DAL
                 context.Settings.AddRange(homeSliderSet, singleBanner1Set, singleBanner2Set);
                 #endregion
 
+                #region statuses
+                Status status1 = new Status { Name = "Новый", Code = 1 };
+                Status status2 = new Status { Name = "В обработке", Code = 2 };
+                Status status3 = new Status { Name = "Завершен", Code = 3 };
+                context.Statuses.AddRange(status1, status2, status3);
+                #endregion
+
                 context.SaveChanges();
             }
         }

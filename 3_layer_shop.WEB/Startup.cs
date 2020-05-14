@@ -34,6 +34,7 @@ namespace _3_layer_shop.WEB
             services.AddTransient<IInformationService, DbInformationService>();
             services.AddTransient<IBannerService, DbBannerService>();
             services.AddTransient<ICommonService, DbCommonService>();
+            services.AddTransient<ICheckoutService, DbCheckoutService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());
         

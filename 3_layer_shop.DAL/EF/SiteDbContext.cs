@@ -18,6 +18,8 @@ namespace _3_layer_shop.DAL.EF
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Information> Informations { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Checkout> Checkouts { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
         public SiteDbContext(DbContextOptions<SiteDbContext> options) : base(options)
         {
@@ -38,6 +40,8 @@ namespace _3_layer_shop.DAL.EF
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new InformationConfiguration());
             modelBuilder.ApplyConfiguration(new ImageToProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CheckoutConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusConfiguration());
         }
 
         public class SiteDbContextFactory : IDesignTimeDbContextFactory<SiteDbContext>

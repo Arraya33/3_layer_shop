@@ -67,6 +67,11 @@ namespace _3_layer_shop.WEB
                 defaults: new { controller = "Cart", action = "Cart" });
 
                 endpoints.MapControllerRoute(
+                name: "searchPage",
+                pattern: "Search",
+                defaults: new { controller = "Product", action = "Search" });
+
+                endpoints.MapControllerRoute(
                 name: "checkoutPage",
                 pattern: "Checkout",
                 defaults: new { controller = "Checkout", action = "Checkout" });

@@ -3,22 +3,27 @@
 
 <vc:slider banner-group="@ViewBag.HomeBannerGroup" />
 
-<!-- Products -->
 
-<div class="products">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="product_grid">
-                    @foreach (ProductPageViewModel product in Model.Products)
-                    {
-                        <partial name="Partials/Product/ProductCardPartial" model="product" />
-                    }
+@if (Model.Products != null)
+{
+    <!-- Products -->
+
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="product_grid">
+                        @foreach (ProductPageViewModel product in Model.Products)
+                        {
+                            <partial name="Partials/Product/ProductCardPartial" model="product" />
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+
 
 <!-- Ad -->
 <vc:banner banner="@ViewBag.SingleBanner" banner-type=@BannerType.Small />

@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="header_content d-flex flex-row align-items-center justify-content-start">
-                                <div class="logo"><a href="#">Sublime.</a></div>
+                                <div class="logo"><a asp-controller="Home" asp-action="Index">Sublime.</a></div>
                                 <vc:header-menu />
                                 <div class="header_extra ml-auto">
                                     <vc:shopping-cart />
@@ -90,6 +90,8 @@
     <script src="~/plugins/Isotope/isotope.pkgd.min.js"></script>
     <script src="~/plugins/easing/easing.js"></script>
     <script src="~/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="~/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts")
 </body>
 </html>

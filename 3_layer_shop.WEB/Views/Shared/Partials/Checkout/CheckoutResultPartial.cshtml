@@ -1,0 +1,12 @@
+﻿@model string
+
+<h2>@Model</h2>
+<div>
+    <a asp-controller="Home" asp-action="Index">На главную</a>
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.replace("@Url.Action("Index", "Home")");
+    }, 5000);
+</script>

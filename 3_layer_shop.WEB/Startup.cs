@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _3_layer_shop.BLL.Abstract;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.BLL.Services;
 using _3_layer_shop.DAL.EF;
@@ -27,14 +28,18 @@ namespace _3_layer_shop.WEB
         {
             string connection = Configuration.GetConnectionString("ThreeLayerShop");
 
-            services.AddDbContext<SiteDbContext>(options =>
-                options.UseSqlServer(connection));
+            services.AddDbContext<SiteDbContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<IProductService, DbProductService>();
             services.AddTransient<IInformationService, DbInformationService>();
             services.AddTransient<IBannerService, DbBannerService>();
             services.AddTransient<ICommonService, DbCommonService>();
+            services.AddTransient<ICheckoutService, DbCheckoutService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());
+        
             services.AddMvc();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +52,7 @@ namespace _3_layer_shop.WEB
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
@@ -54,6 +60,21 @@ namespace _3_layer_shop.WEB
                 name: "discountPage",
                 pattern: "Discount",
                 defaults: new { controller = "Product", action = "DiscountList" });
+
+                endpoints.MapControllerRoute(
+                name: "cartPage",
+                pattern: "Cart",
+                defaults: new { controller = "Cart", action = "Cart" });
+
+                endpoints.MapControllerRoute(
+                name: "searchPage",
+                pattern: "Search",
+                defaults: new { controller = "Product", action = "Search" });
+
+                endpoints.MapControllerRoute(
+                name: "checkoutPage",
+                pattern: "Checkout",
+                defaults: new { controller = "Checkout", action = "Checkout" });
 
                 endpoints.MapControllerRoute(
                     name: "productPage",

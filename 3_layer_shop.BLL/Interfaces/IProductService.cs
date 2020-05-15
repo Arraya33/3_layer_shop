@@ -8,6 +8,7 @@ namespace _3_layer_shop.BLL.Interfaces
 {
     public interface IProductService
     {
+        public ProductCategoryPageDTO GetSearcedProducts(string searchKey);
         public ProductPageDTO GetProductPage(string productAlias);
         public ProductPageDTO GetProduct(int productId);
         public ProductCategoryPageDTO GetProductCategoryPage(string categoryAlias, int pageNumber, int pageSize, ProductOrderType orderType);

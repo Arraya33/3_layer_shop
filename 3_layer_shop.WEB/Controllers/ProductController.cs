@@ -108,6 +108,39 @@ namespace _3_layer_shop.WEB.Controllers
             return View(model);
         }
 
+        public ActionResult Search(string search)
+        {
+            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetSearcedProducts(search);
+
+            if (productCategoryPageDTO == null)
+                return NotFound();
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryPageDTO);
+
+            if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
+                if (int.TryParse(bannerIdString, out int singleBannerId))
+                {
+                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+
+                    IMapper bannerMapper = new MapperConfiguration(cfg =>
+                    {
+                        cfg.CreateMap<BannerDTO, BannerViewModel>();
+                        cfg.CreateMap<ImageDTO, ImageViewModel>();
+                    }).CreateMapper();
+                    BannerViewModel banner = bannerMapper.Map<BannerViewModel>(bannerDTO);
+                    ViewBag.SingleBanner = banner;
+                }
+
+            ViewBag.Title = model.Title;
+            return View("List", model);
+        }
+
         public ActionResult DiscountList(int page = 1)
         {
             ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize, ProductOrderType.Name);

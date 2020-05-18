@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -348,7 +348,7 @@ section
 }
 .main_nav
 {
-	margin-left: 156px;
+	margin-left: 100px;
 }
 .main_nav > ul > li
 {

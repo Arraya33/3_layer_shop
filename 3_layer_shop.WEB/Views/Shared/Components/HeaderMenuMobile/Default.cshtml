@@ -8,7 +8,7 @@
             <partial name="Partials/Search/SearchPanelMobilePartial" />
             <ul class="page_menu_nav menu_mm">
                 <li class="page_menu_item menu_mm">
-                    <a asp-controller="Home" asp-action="Index">Home<i class="fa fa-angle-down"></i></a>
+                    <a asp-controller="Home" asp-action="Index">Главная<i class="fa fa-angle-down"></i></a>
                 </li>
                 <li class="page_menu_item has-children menu_mm">
                     <span>Categories<i class="fa fa-angle-down"></i></span>
@@ -19,7 +19,7 @@
                         }
                     </ul>
                 </li>
-                <li class="page_menu_item menu_mm"><a asp-controller="Product" asp-action="DiscountList">Discount<i class="fa fa-angle-down"></i></a></li>
+                <li class="page_menu_item menu_mm"><a asp-controller="Product" asp-action="DiscountList">Товары со скидкой<i class="fa fa-angle-down"></i></a></li>
                 @foreach (InformationPageViewModel information in Model.Informations)
                 {
                     <li class="page_menu_item menu_mm"><a asp-controller="Information" asp-action="Article" asp-route-articleAlias="@information.Alias">@information.Name<i class="fa fa-angle-down"></i></a></li>

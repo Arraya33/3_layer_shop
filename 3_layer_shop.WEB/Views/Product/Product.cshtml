@@ -16,7 +16,7 @@
                         <img src="@Model.MainImage.Path" alt="@Model.MainImage.Alt">
                         @if (Model.DiscountPrice > 0)
                         {
-                            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>
+                            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Акция</a></div>
                         }
                     </div>
                     <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
@@ -46,14 +46,14 @@
 
                     <!-- In Stock -->
                     <div class="in_stock_container">
-                        <div class="availability">Availability:</div>
+                        <div class="availability">Доступно:</div>
                         @if (Model.Quantity > 0)
                         {
-                            <span>In Stock</span>
+                            <span>На складе</span>
                         }
                         else
                         {
-                            <span>Sold Out</span>
+                            <span>Распродано</span>
                         }
 
                     </div>
@@ -65,15 +65,15 @@
                         <!-- Product Quantity -->
                         <div class="product_quantity_container">
                             <div class="product_quantity clearfix">
-                                <span>Qty</span>
+                                <span>Кол-во</span>
                                 <input type="number" name="quantity" value="1" />
                             </div>
-                            <div class="button cart_button"><a id="add_to_cart_btn" href="#">Add to cart</a></div>
+                            <div class="button cart_button"><a id="add_to_cart_btn" href="#">В корзину</a></div>
                         </div>
                     </form>
                     <!-- Share -->
                     <div class="details_share">
-                        <span>Share:</span>
+                        <span>Ссылки:</span>
                         <partial name="Partials/Icons/SocialIconsPartial" />
                     </div>
                 </div>
@@ -83,7 +83,7 @@
         <div class="row description_row">
             <div class="col">
                 <div class="description_title_container">
-                    <div class="description_title">Description</div>
+                    <div class="description_title">Описание</div>
                 </div>
                 <div class="description_text">
                     @Html.Raw(Model.Description)

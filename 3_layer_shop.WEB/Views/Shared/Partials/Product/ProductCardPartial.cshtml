@@ -4,7 +4,7 @@
         <div class="product_image"><img src="@Model.MainImage.Path" alt="@Model.MainImage.Alt"/></div>
         @if (Model.DiscountPrice > 0)
         {
-            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Sale</a></div>
+            <div class="product_extra product_sale"><a asp-controller="Product" asp-action="DiscountList">Акция</a></div>
         }
         <div class="product_content">
             <div class="product_title"><a asp-controller="Product" asp-action="Product" asp-route-productAlias="@Model.Alias">@Model.Name</a></div>

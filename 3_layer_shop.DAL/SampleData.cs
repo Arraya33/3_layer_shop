@@ -18,18 +18,18 @@ namespace _3_layer_shop.DAL
                 #region products-adding
                 Product product1 = new Product
                 {
-                    Name = "p1",
+                    Name = "Телефон",
                     Page = new Page
                     {
-                        Alias = "alias_p1",
-                        Title = " prod 1",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "phone",
+                        Title = "Телефон",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_1.jpg", Alt = "prod1" },
+                    MainImage = new Image { Path = "/images/product_1.jpg", Alt = "Телефон" },
                     Price = 555,
                     DiscountPrice = 123,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 12,
                     DateAdded = new DateTime(2015, 6, 17),
                     Images = new List<ImageToProduct> 
@@ -43,18 +43,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product2 = new Product
                 {
-                    Name = "p2",
+                    Name = "Колонки",
                     Page = new Page
                     {
-                        Alias = "alias_p2",
-                        Title = " prod 2",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "speakers",
+                        Title = " Колонки",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_2.jpg", Alt = "prod2" },
+                    MainImage = new Image { Path = "/images/product_2.jpg", Alt = "Колонки" },
                     Price = 444,
                     DiscountPrice = 321,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 0,
                     DateAdded = new DateTime(2015, 3, 12),
                     Images = new List<ImageToProduct>
@@ -68,18 +68,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product3 = new Product
                 {
-                    Name = "p3",
+                    Name = "Usb шнур",
                     Page = new Page 
                     { 
-                        Alias = "alias_p3",
-                        Title = " prod 3",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "usb_cord",
+                        Title = "Usb шнур",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_3.jpg", Alt = "prod3" },
+                    MainImage = new Image { Path = "/images/product_3.jpg", Alt = "Usb шнур" },
                     Price = 666,
                     DiscountPrice = 53,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 2,
                     DateAdded = new DateTime(2015, 8, 1),
                     Images = new List<ImageToProduct>
@@ -93,17 +93,17 @@ namespace _3_layer_shop.DAL
                 };
                 Product product4 = new Product
                 {
-                    Name = "p4",
+                    Name = "Ноутбук",
                     Page = new Page
                     {
-                        Alias = "alias_p4",
-                        Title = " prod 4",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "Notebook",
+                        Title = " Ноутбук",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_4.jpg", Alt = "prod4" },
+                    MainImage = new Image { Path = "/images/product_4.jpg", Alt = "Ноутбук" },
                     Price = 777,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 42,
                     DateAdded = new DateTime(2016, 5, 30),
                     Images = new List<ImageToProduct>
@@ -117,18 +117,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product5 = new Product
                 {
-                    Name = "p5",
+                    Name = "Наушники",
                     Page = new Page
                     {
-                        Alias = "alias_p5",
-                        Title = " prod 5",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "headphones",
+                        Title = "Наушники",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_5.jpg", Alt = "prod5" },
+                    MainImage = new Image { Path = "/images/product_5.jpg", Alt = "Наушники" },
                     Price = 888,
                     DiscountPrice = 23,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 0,
                     DateAdded = new DateTime(2016, 1, 8),
                     Images = new List<ImageToProduct>
@@ -142,17 +142,17 @@ namespace _3_layer_shop.DAL
                 };
                 Product product6 = new Product
                 {
-                    Name = "p6",
+                    Name = "Планшет",
                     Page = new Page
                     {
-                        Alias = "alias_p6",
-                        Title = " prod 6",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "tablet",
+                        Title = "Планшет",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_6.jpg", Alt = "prod6" },
+                    MainImage = new Image { Path = "/images/product_6.jpg", Alt = "Планшет" },
                     Price = 999,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 4,
                     DateAdded = new DateTime(2017, 4, 21),
                     Images = new List<ImageToProduct>
@@ -166,18 +166,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product7 = new Product
                 {
-                    Name = "p7",
+                    Name = "Камера",
                     Page = new Page
                     {
-                        Alias = "alias_p7",
-                        Title = " prod 7",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "camera",
+                        Title = "Камера",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_7.jpg", Alt = "prod7" },
+                    MainImage = new Image { Path = "/images/product_7.jpg", Alt = "Камера" },
                     Price = 222,
                     DiscountPrice = 32,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 0,
                     DateAdded = new DateTime(2015, 9, 22),
                     Images = new List<ImageToProduct>
@@ -191,18 +191,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product8 = new Product
                 {
-                    Name = "p8",
+                    Name = "Клавиатура",
                     Page = new Page
                     {
-                        Alias = "alias_p8",
-                        Title = " prod 8",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "keyboard",
+                        Title = "Клавиатура",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_8.jpg", Alt = "prod8" },
+                    MainImage = new Image { Path = "/images/product_8.jpg", Alt = "Клавиатура" },
                     Price = 333,
                     DiscountPrice = 51,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 10,
                     DateAdded = new DateTime(2016, 11, 5),
                     Images = new List<ImageToProduct>
@@ -216,17 +216,17 @@ namespace _3_layer_shop.DAL
                 };
                 Product product9 = new Product
                 {
-                    Name = "p9",
+                    Name = "Смартфон",
                     Page = new Page
                     {
-                        Alias = "alias_p9",
-                        Title = " prod 9",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "smartphone",
+                        Title = " Смартфон",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_1.jpg", Alt = "prod9" },
+                    MainImage = new Image { Path = "/images/product_1.jpg", Alt = "Смартфон" },
                     Price = 111,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 0,
                     DateAdded = new DateTime(2014, 9, 17),
                     Images = new List<ImageToProduct>
@@ -240,18 +240,18 @@ namespace _3_layer_shop.DAL
                 };
                 Product product10 = new Product
                 {
-                    Name = "p10",
+                    Name = "Музыкальные колонки",
                     Page = new Page
                     {
-                        Alias = "alias_p10",
-                        Title = " prod 10",
-                        Description = @"product page text product page text product page text
-                            product page text product page text product page text product page text"
+                        Alias = "loudspeakers",
+                        Title = "Музыкальные колонки",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     },
-                    MainImage = new Image { Path = "/images/product_2.jpg", Alt = "prod10" },
+                    MainImage = new Image { Path = "/images/product_2.jpg", Alt = "Музыкальные колонки" },
                     Price = 444,
                     DiscountPrice = 81,
-                    IntroText = "product description product description product description product description product description",
+                    IntroText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
                     Quantity = 8,
                     DateAdded = new DateTime(2017, 2, 21),
                     Images = new List<ImageToProduct>
@@ -297,57 +297,57 @@ namespace _3_layer_shop.DAL
                 #region product-categoies-adding
                 ProductCategory category1 = new ProductCategory
                 { 
-                    Name = "cat1",
+                    Name = "Телефоны",
                     Page = new Page
                     {
-                        Alias = "alias_cat1",
-                        Title = " cat 1",
-                        Description = @"category page text category page text category page text
-                            category page text category page text category page text category page text"
+                        Alias = "phones",
+                        Title = " Телефоны",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
                 ProductCategory category2 = new ProductCategory
                 {
-                    Name = "cat2",
+                    Name = "Акустические системы",
                     Page = new Page
                     {
-                        Alias = "alias_cat2",
-                        Title = " cat 2",
-                        Description = @"category page text category page text category page text
-                            category page text category page text category page text category page text"
+                        Alias = "acoustic",
+                        Title = "Акустические системы",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
                 ProductCategory category3 = new ProductCategory
                 {
-                    Name = "cat3",
+                    Name = "Компьютеры",
                     Page = new Page
                     {
-                        Alias = "alias_cat3",
-                        Title = " cat 3",
-                        Description = @"category page text category page text category page text
-                            category page text category page text category page text category page text"
+                        Alias = "computers",
+                        Title = "Компьютеры",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
                 ProductCategory category4 = new ProductCategory
                 {
-                    Name = "cat4",
+                    Name = "Расходные материалы",
                     Page = new Page
                     {
-                        Alias = "alias_cat4",
-                        Title = " cat 4",
-                        Description = @"category page text category page text category page text
-                            category page text category page text category page text category page text"
+                        Alias = "consumables",
+                        Title = "Расходные материалы",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
                 ProductCategory category5 = new ProductCategory
                 {
-                    Name = "cat5",
+                    Name = "Бытовая техника",
                     Page = new Page
                     {
-                        Alias = "alias_cat5",
-                        Title = " cat 5",
-                        Description = @"category page text category page text category page text
-                            category page text category page text category page text category page text"
+                        Alias = "appliances",
+                        Title = "Бытовая техника",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
 
@@ -374,9 +374,31 @@ namespace _3_layer_shop.DAL
                     new ProductToCategory { Product = product9}
                 };
 
+                List<ProductToCategory> productToCategories4 = new List<ProductToCategory>
+                {
+                    new ProductToCategory { Product = product2},
+                    new ProductToCategory { Product = product3},
+                    new ProductToCategory { Product = product6},
+                    new ProductToCategory { Product = product9}
+                };
+
+                List<ProductToCategory> productToCategories5 = new List<ProductToCategory>
+                {
+                    new ProductToCategory { Product = product1},
+                    new ProductToCategory { Product = product2},
+                    new ProductToCategory { Product = product3},
+                    new ProductToCategory { Product = product4},
+                    new ProductToCategory { Product = product6},
+                    new ProductToCategory { Product = product7},
+                    new ProductToCategory { Product = product8},
+                    new ProductToCategory { Product = product10}
+                };
+
                 category1.ProductToCategories = productToCategories1;
                 category2.ProductToCategories = productToCategories2;
                 category3.ProductToCategories = productToCategories3;
+                category4.ProductToCategories = productToCategories4;
+                category5.ProductToCategories = productToCategories5;
 
                 context.ProductCategories.AddRange(category1, category2, category3, category4, category5);
                 #endregion
@@ -384,79 +406,43 @@ namespace _3_layer_shop.DAL
                 #region informations-adding
                 Information information1 = new Information
                 {
-                    Content = @"info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 ",
-                    Name = "info 1",
+                    Content = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
+                    Name = "О нас",
                     Page = new Page
                     {
-                        Alias = "alias-info1",
-                        Title = " info 1",
-                        Description = @"info page text info page text info page text
-                            info page text info page text info page text info page text"
+                        Alias = "about-us",
+                        Title = " О нас",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
                 Information information2 = new Information
                 {
-                    Content = @"info text 2 info text 2 info text 2 info text 2 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 ",
-                    Name = "info 2",
+                    Content = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.",
+                    Name = "Доставка и оплата",
                     Page = new Page
                     {
-                        Alias = "alias-info2",
-                        Title = " info 2",
-                        Description = @"info page text info page text info page text
-                            info page text info page text info page text info page text"
-                    }
-                };
-                Information information3 = new Information
-                {
-                    Content = @"info text 3 info text 3 info text 3 info text 3 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 ",
-                    Name = "info 3",
-                    Page = new Page
-                    {
-                        Alias = "alias-info3",
-                        Title = " info 3",
-                        Description = @"info page text info page text info page text
-                            info page text info page text info page text info page text"
-                    }
-                };
-                Information information4 = new Information
-                {
-                    Content = @"info text 4 info text 4 info text 4 info text 4 info text 4 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1 info text 1
-                        info text 1 info text 1 info text 1 info text 1 ",
-                    Name = "info 4",
-                    Page = new Page
-                    {
-                        Alias = "alias-info4",
-                        Title = " info 4",
-                        Description = @"info page text info page text info page text
-                            info page text info page text info page text info page text"
+                        Alias = "delivery",
+                        Title = " Доставка и оплата",
+                        Description = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie."
                     }
                 };
 
-                context.Informations.AddRange(information1, information2, information3, information4);
+                context.Informations.AddRange(information1, information2);
                 #endregion
 
                 #region banners-adding
                 Banner banner1 = new Banner { Image = new Image { Path = "/images/home_slider_1.jpg", Alt = "home_slider_1" },
-                    Description = "banner description 1", Link = "https://www.google.ru", Title = "banner 1" };
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.", Link = "/phones", Title = "Телефоны" };
                 Banner banner2 = new Banner { Image = new Image { Path = "/images/home_slider_1.jpg", Alt = "home_slider_2" },
-                    Description = "banner description 2", Link = "https://www.google.ru", Title = "banner 2" };
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.", Link = "/computers", Title = "Компьютеры" };
                 Banner banner3 = new Banner { Image = new Image { Path = "/images/home_slider_1.jpg", Alt = "home_slider_3" },
-                    Description = "banner description 3", Link = "https://www.google.ru", Title = "banner 3" };
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.", Link = "/appliances", Title = "Бытовая техника" };
                 Banner banner4 = new Banner { Image = new Image { Path = "/images/avds_xl.jpg", Alt = "avds_xl" },
-                    Description = "banner description 4", Link = "https://www.google.ru", Title = "banner 4" };
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.", Link = "https://google.ru", Title = "Наушники" };
                 Banner banner5 = new Banner { Image = new Image { Path = "/images/categories.jpg", Alt = "categories" },
-                    Description = "banner description 5", Link = "https://www.google.ru", Title = "banner 5" };
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie.", Link = "/article/delivery", Title = "Доставка" };
 
                 BannerGroup bannerGroup1 = new BannerGroup { Banners = new List<Banner> { banner1, banner2, banner3 }, Name = "HomePageSlider" };
 

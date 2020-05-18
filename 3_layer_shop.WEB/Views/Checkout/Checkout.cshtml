@@ -12,31 +12,31 @@
             <!-- Billing Info -->
             <div class="col-lg-6">
                 <div class="billing checkout_section">
-                    <div class="section_title">Billing Address</div>
-                    <div class="section_subtitle">Enter your address info</div>
+                    <div class="section_title">Оформление заказа</div>
+                    <div class="section_subtitle">Введите ваши данные</div>
                     <div class="checkout_form_container">
                         <form asp-action="Checkout" method="post" id="checkout_form" class="checkout_form">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <label asp-for="FirstName">FirstName*</label>
+                                    <label asp-for="FirstName"></label>
                                     <input class="checkout_input" asp-for="FirstName">
                                 </div>
                                 <div class="col-xl-6 last_name_col">
-                                    <label asp-for="LastName">FirstName*</label>
+                                    <label asp-for="LastName"></label>
                                     <input class="checkout_input" asp-for="LastName">
                                 </div>
                             </div>
                             <div>
-                                <label asp-for="Address">Address*</label>
+                                <label asp-for="Address"></label>
                                 <input class="checkout_input" asp-for="Address">
                             </div>
                             <div>
-                                <label asp-for="Email">Email*</label>
+                                <label asp-for="Email"></label>
                                 <input class="checkout_input" asp-for="Email">
                             </div>
                             <div>
-                                <label asp-for="Phone">Phone</label>
+                                <label asp-for="Phone"></label>
                                 <input class="checkout_input" asp-for="Phone">
                             </div>
                         </form>
@@ -48,15 +48,15 @@
 
             <div class="col-lg-6">
                 <div class="order checkout_section">
-                    <div class="section_title">Your order</div>
-                    <div class="section_subtitle">Order details</div>
+                    <div class="section_title">Ваш заказ</div>
+                    <div class="section_subtitle">Детали заказа</div>
                     @if (Model.CartLines.Any())
                     {
                         <!-- Order details -->
                         <div class="order_list_container">
                             <div class="order_list_bar d-flex flex-row align-items-center justify-content-start">
-                                <div class="order_list_title">Product</div>
-                                <div class="order_list_value ml-auto">Total</div>
+                                <div class="order_list_title">Товар</div>
+                                <div class="order_list_value ml-auto">Сумма</div>
                             </div>
                             <ul class="order_list">
                                 @foreach (CartLine line in Model.CartLines)
@@ -76,7 +76,7 @@
                                     </li>
                                 }
                                 <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="order_list_title">Total</div>
+                                    <div class="order_list_title">Итого</div>
                                     <div class="order_list_value ml-auto">$@Model.TotalValue</div>
                                 </li>
                             </ul>
@@ -86,7 +86,7 @@
 
                     <!-- Order Text -->
                     <div class="order_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra temp or so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</div>
-                    <div class="button order_button"><a href="#" id="checkout_submit">Place Order</a></div>
+                    <div class="button order_button"><a href="#" id="checkout_submit">Отправить</a></div>
                 </div>
             </div>
         </div>

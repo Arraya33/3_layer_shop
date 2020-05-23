@@ -100,12 +100,12 @@
 <partial name="Partials/Forms/NewsletterFormPartial" />
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/styles/product.css">
-    <link rel="stylesheet" type="text/css" href="~/styles/product_responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/product.css" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="~/styles/product_responsive.css" asp-append-version="true">
 }
 
 @section Scripts {
-    <script src="~/js/product.js"></script>
+    <script src="~/js/product.js" asp-append-version="true"></script>
     <script>
         $("#add_to_cart_btn").click(function (event) { event.preventDefault(); $("#add_to_cart_form").submit(); });
     </script>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using _3_layer_shop.DAL;
 using _3_layer_shop.DAL.EF;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +25,9 @@ namespace _3_layer_shop.WEB
 
                 SiteDbContext context = services.GetRequiredService<SiteDbContext>();
                 SampleData.InitData(context);
+
+                UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                SampleData.InitIdentityData(userManager);
             }
 
             host.Run();

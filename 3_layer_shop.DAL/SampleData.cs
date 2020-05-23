@@ -1,6 +1,7 @@
 ﻿using _3_layer_shop.DAL.EF;
 using _3_layer_shop.DAL.Entities;
 using _3_layer_shop.DAL.Entities.Abstract;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -469,6 +470,11 @@ namespace _3_layer_shop.DAL
 
                 context.SaveChanges();
             }
+        }
+
+        public static void InitIdentityData(UserManager<IdentityUser> userManager)
+        {
+            userManager.CreateAsync(new IdentityUser("Admin"), "wqssd03dn-fFdx").Wait();
         }
     }
 }

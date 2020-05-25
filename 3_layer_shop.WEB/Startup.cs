@@ -9,6 +9,7 @@ using _3_layer_shop.DAL.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,23 +28,28 @@ namespace _3_layer_shop.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("ThreeLayerShop");
+            string identityConnection = Configuration.GetConnectionString("IdentityConnection");
 
             services.AddDbContext<SiteDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(identityConnection));
 
             services.AddTransient<IProductService, DbProductService>();
             services.AddTransient<IInformationService, DbInformationService>();
             services.AddTransient<IBannerService, DbBannerService>();
             services.AddTransient<ICommonService, DbCommonService>();
             services.AddTransient<ICheckoutService, DbCheckoutService>();
+            services.AddTransient<IAccountService, IdentityAccountService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());
-        
+            services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());          
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+
             services.AddMvc();
             services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider www)
         {
             if (env.IsDevelopment())
             {
@@ -52,29 +58,37 @@ namespace _3_layer_shop.WEB
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                name: "discountPage",
-                pattern: "Discount",
-                defaults: new { controller = "Product", action = "DiscountList" });
+                endpoints.MapAreaControllerRoute(
+                    name: "accountRegister",
+                    areaName: "identity",
+                    pattern: "Account/{action=Login}",
+                    defaults: new { controller = "Account" });
 
                 endpoints.MapControllerRoute(
-                name: "cartPage",
-                pattern: "Cart",
-                defaults: new { controller = "Cart", action = "Cart" });
+                    name: "discountPage",
+                    pattern: "Discount",
+                    defaults: new { controller = "Product", action = "DiscountList" });
 
                 endpoints.MapControllerRoute(
-                name: "searchPage",
-                pattern: "Search",
-                defaults: new { controller = "Product", action = "Search" });
+                    name: "cartPage",
+                    pattern: "Cart",
+                    defaults: new { controller = "Cart", action = "Cart" });
 
                 endpoints.MapControllerRoute(
-                name: "checkoutPage",
-                pattern: "Checkout",
-                defaults: new { controller = "Checkout", action = "Checkout" });
+                    name: "searchPage",
+                    pattern: "Search",
+                    defaults: new { controller = "Product", action = "Search" });
+
+                endpoints.MapControllerRoute(
+                    name: "checkoutPage",
+                    pattern: "Checkout",
+                    defaults: new { controller = "Checkout", action = "Checkout" });
 
                 endpoints.MapControllerRoute(
                     name: "productPage",

@@ -94,12 +94,12 @@
 </div>
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/styles/checkout.css">
-    <link rel="stylesheet" type="text/css" href="~/styles/checkout_responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/checkout.css" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="~/styles/checkout_responsive.css" asp-append-version="true">
 }
 
 @section Scripts {
-    <script src="~/js/checkout.js"></script>
+    <script src="~/js/checkout.js" asp-append-version="true"></script>
     <script>
         $("#checkout_submit").click(function (event) { event.preventDefault(); $("#checkout_form").submit(); });
     </script>

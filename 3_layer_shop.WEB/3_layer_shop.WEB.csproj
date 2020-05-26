@@ -9,4 +9,9 @@
     <ProjectReference Include="..\3_layer_shop.BLL\3_layer_shop.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>

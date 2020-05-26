@@ -65,6 +65,11 @@ namespace _3_layer_shop.WEB
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
+                    name: "adminDefault",
+                    areaName: "admin",
+                    pattern: "Admin/{controller=AdminHome}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
                     name: "accountRegister",
                     areaName: "identity",
                     pattern: "Account/{action=Login}",

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/twitter-bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/styles/sidebar.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sublime.</a>
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,7 +25,7 @@
                                 <a class="nav-link text-dark">@User.Identity.Name</a>
                             </li>
                             <li class="nav-item">
-                                <form class="form-inline" method="post" asp-controller="Account" asp-action="Logout">
+                                <form class="form-inline" method="post" asp-area="Account" asp-controller="Account" asp-action="Logout">
                                     <button class="nav-link btn btn-link text-dark" type="submit">Выход</button>
                                 </form>
                             </li>
@@ -46,12 +48,27 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Start Bootstrap </div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
+        <div class="container" id="page-content-wrapper">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
     <footer class="border-top footer text-muted">
         <div class="container">
             <a asp-area="" asp-controller="Home" asp-action="Index">Sublime.</a>
@@ -59,6 +76,12 @@
     </footer>
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script src="~/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

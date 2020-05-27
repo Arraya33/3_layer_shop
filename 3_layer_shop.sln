@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_layer_shop.WEB", "3_layer_shop.WEB\3_layer_shop.WEB.csproj", "{6243B1EB-C7DC-4843-B405-D67A0567109B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_layer_shop.DAL", "3_layer_shop.DAL\3_layer_shop.DAL.csproj", "{F02DC4FE-D40A-43DE-9C3E-E898AAF28E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_layer_shop.DAL", "3_layer_shop.DAL\3_layer_shop.DAL.csproj", "{F02DC4FE-D40A-43DE-9C3E-E898AAF28E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_layer_shop.BLL", "3_layer_shop.BLL\3_layer_shop.BLL.csproj", "{2CC8EFB9-CEE8-4F18-99C0-FDA053A0C0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_layer_shop.BLL", "3_layer_shop.BLL\3_layer_shop.BLL.csproj", "{2CC8EFB9-CEE8-4F18-99C0-FDA053A0C0AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

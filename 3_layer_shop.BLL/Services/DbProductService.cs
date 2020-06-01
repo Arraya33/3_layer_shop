@@ -202,9 +202,24 @@ namespace _3_layer_shop.BLL.Services
         public IEnumerable<ProductCategoryPageDTO> GetProductCategoryList()
         {
             IEnumerable<ProductCategoryPageDTO> productCategoryList = _dbContext.ProductCategories
-                .Select(pc => new ProductCategoryPageDTO { Name = pc.Name, Alias = pc.Page.Alias });
+                .Select(pc => new ProductCategoryPageDTO { Name = pc.Name, Alias = pc.Page.Alias, Id = pc.Id });
 
             return productCategoryList;
+        }
+
+        public ProductCategoriesListDTO GetProductCategoryList(int pageNumber, int pageSize)
+        {
+            IEnumerable<ProductCategoryPageDTO> productCategoryList = _dbContext.ProductCategories
+                .Select(pc => new ProductCategoryPageDTO { Name = pc.Name, Alias = pc.Page.Alias, Id = pc.Id })
+                .Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            ProductCategoriesListDTO productCategories = new ProductCategoriesListDTO
+            {
+                ProductCategories = productCategoryList,
+                TotalItems = _dbContext.ProductCategories.Count()
+            };
+
+            return productCategories;
         }
     }
 }

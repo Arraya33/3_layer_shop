@@ -1,3 +1,40 @@
-﻿@model IEnumerable<ProductListPageViewModel>
+﻿@model ProductCategoriesListViewModel
 
 <h2>Категории товаров</h2>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Наименование</th>
+        <th>ЧПУ</th>
+        <th></th>
+    </tr>
+    @if (Model.ProductCategories != null)
+    {
+        foreach (ProductListPageViewModel productCategory in Model.ProductCategories)
+        {
+            <tr>
+                <td>@productCategory.Id</td>
+                <td>@productCategory.Name</td>
+                <td>@productCategory.Alias</td>
+                <td>
+                    <form asp-action="DeleteProductCategory" asp-route-categoryId="@productCategory.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditProductCategory" asp-route-categoryId="@productCategory.Id">Изменить</a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@if (Model.PagingInfo != null)
+{
+    <div class="product_pagination" page-model="Model.PagingInfo"></div>
+}
+
+<div class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Добавить</a>
+</div>

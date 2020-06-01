@@ -9,8 +9,4 @@
     <ProjectReference Include="..\3_layer_shop.BLL\3_layer_shop.BLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\ViewModels\" />
-  </ItemGroup>
-
 </Project>

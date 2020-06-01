@@ -28,9 +28,6 @@ namespace _3_layer_shop.BLL.Services
             IEnumerable<Product> products = _dbContext.Products.Include(p => p.Page).Include(p => p.MainImage)
                 .Where(p => p.Name.Contains(searchKey));
 
-            //IEnumerable<Product> products = _dbContext.Products.Include(p => p.Page).Include(p => p.MainImage)
-            //    .Where(p => EF.Functions.Like(p.Name, "") );
-
             if (!products.Any())
             {
                 return new ProductCategoryPageDTO();
@@ -141,6 +138,57 @@ namespace _3_layer_shop.BLL.Services
             {
                 cfg.CreateMap<Product, ProductPageDTO>()
                     .ForMember(prodDTO => prodDTO.Alias, opt => opt.MapFrom(prod => prod.Page.Alias));
+                cfg.CreateMap<Image, ImageDTO>();
+            }).CreateMapper();
+
+            ProductCategoryPageDTO productCategoryDTO = categoryMapper.Map<ProductCategoryPageDTO>(productCategory);
+            IEnumerable<ProductPageDTO> productsDTO = productMapper.Map<IEnumerable<ProductPageDTO>>(products);
+
+            productCategoryDTO.Products = productsDTO;
+            productCategoryDTO.TotalItems = _dbContext.Entry(productCategory).Collection(pc => pc.ProductToCategories).Query().Count();
+
+            return productCategoryDTO;
+        }
+
+        public ProductCategoryPageDTO GetProductCategoryPage(int categoryId, int pageNumber, int pageSize, ProductOrderType orderType)
+        {
+            Expression<Func<Product, object>> orderExp;
+
+            switch (orderType)
+            {
+                case ProductOrderType.Name:
+                    orderExp = p => p.Name;
+                    break;
+                case ProductOrderType.Price:
+                    orderExp = p => p.Price;
+                    break;
+                default:
+                    orderExp = p => p.Name;
+                    break;
+            }
+
+            ProductCategory productCategory = _dbContext.ProductCategories.Include(pc => pc.Page).FirstOrDefault(pc => pc.Id == categoryId);
+
+            if (productCategory == null || productCategory.Page == null)
+            {
+                return null;
+            }
+
+            IEnumerable<Product> products = _dbContext.Entry(productCategory).Collection(pc => pc.ProductToCategories).Query()
+                .Include(ptc => ptc.Product).ThenInclude(p => p.MainImage).Select(ptc => ptc.Product)
+                .OrderBy(orderExp).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            IMapper categoryMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCategory, ProductCategoryPageDTO>()
+                    .ForMember(catDTO => catDTO.Alias, opt => opt.MapFrom(cat => cat.Page.Alias))
+                    .ForMember(catDTO => catDTO.Description, opt => opt.MapFrom(cat => cat.Page.Description))
+                    .ForMember(catDTO => catDTO.Title, opt => opt.MapFrom(cat => cat.Page.Title));
+            }).CreateMapper();
+
+            IMapper productMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductPageDTO>();
                 cfg.CreateMap<Image, ImageDTO>();
             }).CreateMapper();
 

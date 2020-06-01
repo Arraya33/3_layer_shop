@@ -1,4 +1,5 @@
 ﻿using _3_layer_shop.BLL.DTO;
+using _3_layer_shop.BLL.Enums;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.WEB.Areas.Admin.Models.ViewModels;
 using _3_layer_shop.WEB.Models;
@@ -55,15 +56,72 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
             return View(productPageViewModels);
         }
 
-        public IActionResult EditProductCategory(int categoryId)
+        public IActionResult EditProductCategory(int categoryId, int page = 1)
         {
-            ProductListPageViewModel productListPageViewModel = new ProductListPageViewModel();
-            return View(productListPageViewModel);
+            ProductCategoryPageDTO productCategoryPageDTO = _productService.GetProductCategoryPage(categoryId, page, _pageSize, ProductOrderType.Name);
+
+            if (productCategoryPageDTO == null)
+                return NotFound();
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productCategoryPageDTO);
+
+            Dictionary<string, string> pagingParameters = new Dictionary<string, string>();
+            pagingParameters.Add("categoryId", categoryId.ToString());
+
+            PagingInfo pagingInfo = new PagingInfo
+            {
+                CurrentPage = page,
+                ItemsPerPage = _pageSize,
+                TotalItems = productCategoryPageDTO.TotalItems,
+                PageAction = "EditProductCategory",
+                Parameters = pagingParameters
+            };
+
+            model.PagingInfo = pagingInfo;
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult EditProductCategory(ProductListPageViewModel productListPageViewModel)
         {
+            ProductCategoryPageDTO productCategoryPageDTO = _productService
+                .GetProductCategoryPage(productListPageViewModel.Id, 1, _pageSize, ProductOrderType.Name);
+
+            if (productCategoryPageDTO == null)
+                return NotFound();
+
+            IEnumerable<ProductPageDTO> productDTOs = productCategoryPageDTO?.Products;
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+            IEnumerable<ProductPageViewModel> products = mapper.Map<IEnumerable<ProductPageViewModel>>(productDTOs);
+
+            productListPageViewModel.Products = products;
+
+            Dictionary<string, string> pagingParameters = new Dictionary<string, string>();
+            pagingParameters.Add("categoryId", productCategoryPageDTO.Id.ToString());
+
+            PagingInfo pagingInfo = new PagingInfo
+            {
+                CurrentPage = 1,
+                ItemsPerPage = _pageSize,
+                TotalItems = productCategoryPageDTO.TotalItems,
+                PageAction = "EditProductCategory",
+                Parameters = pagingParameters
+            };
+
+            productListPageViewModel.PagingInfo = pagingInfo;
+
             return View(productListPageViewModel);
         }
 

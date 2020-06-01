@@ -1,5 +1,7 @@
 ﻿using _3_layer_shop.WEB.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -41,7 +43,17 @@ namespace _3_layer_shop.WEB.TagHelpers
                 else
                 {
                     TagBuilder link = new TagBuilder("a");
-                    link.Attributes["href"] = urlHelper.Action(PageModel.PageAction, new { page = i });
+
+                    Dictionary<string, string> parameters = new Dictionary<string, string>();
+                    parameters.Add("page", i.ToString());
+
+                    if (PageModel.Parameters != null)
+                    {
+                        parameters = parameters.Union(PageModel.Parameters).ToDictionary(p => p.Key, p => p.Value);
+                    }
+
+
+                    link.Attributes["href"] = urlHelper.Action(PageModel.PageAction, parameters);
                     link.InnerHtml.Append(i.ToString() + ".");
                     item.InnerHtml.AppendHtml(link);
                 }

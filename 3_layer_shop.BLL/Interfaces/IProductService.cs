@@ -12,6 +12,7 @@ namespace _3_layer_shop.BLL.Interfaces
         public ProductPageDTO GetProductPage(string productAlias);
         public ProductPageDTO GetProduct(int productId);
         public ProductCategoryPageDTO GetProductCategoryPage(string categoryAlias, int pageNumber, int pageSize, ProductOrderType orderType);
+        public ProductCategoryPageDTO GetProductCategoryPage(int categoryId, int pageNumber, int pageSize, ProductOrderType orderType);
         public ProductCategoryPageDTO GetDiscountProductPage(int pageNumber, int pageSize, ProductOrderType orderType);
         public IEnumerable<ProductCategoryPageDTO> GetProductCategoryList();
         public ProductCategoriesListDTO GetProductCategoryList(int pageNumber, int pageSize);

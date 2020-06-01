@@ -11,6 +11,7 @@ namespace _3_layer_shop.WEB.Models
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
         public int TotalPages =>
             (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage);
     }

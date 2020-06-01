@@ -1,3 +1,78 @@
 ﻿@model ProductListPageViewModel
 
 <h2>Редактирование категории товара</h2>
+
+
+<ul class="nav nav-tabs">
+    <!-- Первая вкладка (активная) -->
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#description">Характеристики</a>
+    </li>
+    <!-- Вторая вкладка -->
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#characteristics">Товары</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active pt-3" id="description">
+        <form asp-action="EditProductCategory" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <div><span asp-validation-for="Name" class="text-danger"></span></div>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <div><span asp-validation-for="Description" class="text-danger"></span></div>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Alias"></label>
+                <div><span asp-validation-for="Alias" class="text-danger"></span></div>
+                <input asp-for="Alias" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <div><span asp-validation-for="Title" class="text-danger"></span></div>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a asp-action="Index" asp-controller="AdminHome" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade pt-3" id="characteristics">
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Изображение</th>
+                <th>Наименование</th>
+                <th>ЧПУ</th>
+                <th></th>
+            </tr>
+            @if (Model.Products != null)
+            {
+                foreach (ProductPageViewModel product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td><img width="100" height="100" src="@product.MainImage.Path" /></td>
+                        <td>@product.Name</td>
+                        <td>@product.Alias</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">Изменить</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+        @if (Model.PagingInfo != null)
+        {
+            <div class="product_pagination" page-model="Model.PagingInfo"></div>
+        }
+    </div>
+</div>

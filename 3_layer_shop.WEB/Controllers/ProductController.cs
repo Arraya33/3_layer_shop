@@ -18,23 +18,23 @@ namespace _3_layer_shop.WEB.Controllers
         private ICommonService _commonService;
         private IProductService _productService;
         private IConfiguration _configuration;
-        private IBannerService _bannerService;
+        private IImageService _imageService;
         private IDictionary<string, string> _siteSettings;
         int _pageSize;
 
-        public ProductController(IConfiguration configuration, IProductService productService, ICommonService commonService, IBannerService bannerService)
+        public ProductController(IConfiguration configuration, IProductService productService, ICommonService commonService, IImageService imageService)
         {
             _configuration = configuration;
             _productService = productService;
             _commonService = commonService;
-            _bannerService = bannerService;
+            _imageService = imageService;
             _pageSize = _configuration.GetValue<int>("PageSize");
             _siteSettings = _commonService.GetSiteSettings();
         }
 
         public ActionResult Product(string productAlias)
         {
-            ProductPageDTO productPageDTO = _productService.GetProductPage(productAlias);
+            ProductPageDTO productPageDTO = _productService.GetProduct(productAlias);
 
             if (productPageDTO == null)
                 return NotFound();
@@ -49,7 +49,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {
@@ -91,7 +91,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {
@@ -126,7 +126,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {
@@ -167,7 +167,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper BannerMapper = new MapperConfiguration(cfg =>
                     {

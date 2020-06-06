@@ -35,7 +35,7 @@ namespace _3_layer_shop.WEB
 
             services.AddTransient<IProductService, DbProductService>();
             services.AddTransient<IInformationService, DbInformationService>();
-            services.AddTransient<IBannerService, DbBannerService>();
+            services.AddTransient<IImageService, DbImageService>();
             services.AddTransient<ICommonService, DbCommonService>();
             services.AddTransient<ICheckoutService, DbCheckoutService>();
             services.AddTransient<IAccountService, IdentityAccountService>();

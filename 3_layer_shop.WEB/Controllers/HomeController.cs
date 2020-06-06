@@ -14,13 +14,13 @@ namespace _3_layer_shop.WEB.Controllers
     public class HomeController : Controller
     {
         private ICommonService _commonService;
-        private IBannerService _bannerService;
+        private IImageService _imageService;
         private IDictionary<string, string> _siteSettings;
 
-        public HomeController(ICommonService commonService, IBannerService bannerService)
+        public HomeController(ICommonService commonService, IImageService imageService)
         {
             _commonService = commonService;
-            _bannerService = bannerService;
+            _imageService = imageService;
             _siteSettings = _commonService.GetSiteSettings();
         }
 
@@ -40,7 +40,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("HomeSliderId", out string bannerGroupIdString))
                 if ( int.TryParse(bannerGroupIdString, out int bannerGroupId))
                 {
-                    BannerGroupDTO bannerGroupDTO = _bannerService.GetBannerGroup(bannerGroupId);
+                    BannerGroupDTO bannerGroupDTO = _imageService.GetBannerGroup(bannerGroupId);
 
                     IMapper BannerGroupMapper = new MapperConfiguration(cfg =>
                     {
@@ -56,7 +56,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("SmallBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper BannerMapper = new MapperConfiguration(cfg =>
                     {

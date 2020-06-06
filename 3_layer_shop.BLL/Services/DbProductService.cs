@@ -52,7 +52,7 @@ namespace _3_layer_shop.BLL.Services
             return searchedProductsPage;
         }
 
-        public ProductPageDTO GetProductPage(string productAlias)
+        public ProductPageDTO GetProduct(string productAlias)
         {
             Product product = _dbContext.Products.Include(p => p.Page).Include(p => p.MainImage)
                 .Include(p => p.Images).ThenInclude(itp => itp.Image)
@@ -83,12 +83,18 @@ namespace _3_layer_shop.BLL.Services
 
         public ProductPageDTO GetProduct(int productId)
         {
-            Product product = _dbContext.Products.Include(p => p.MainImage).Include(p => p.Page).FirstOrDefault(p => p.Id == productId);
+            Product product = _dbContext.Products.Include(p => p.MainImage).Include(p => p.Page)
+                .Include(p => p.Images).ThenInclude(itp => itp.Image)
+                .Include(p => p.ProductToProductsChilds).ThenInclude(ptp => ptp.ProductChild)
+                .FirstOrDefault(p => p.Id == productId);
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Product, ProductPageDTO>()
-                    .ForMember(prodDTO => prodDTO.Alias, opt => opt.MapFrom(prod => prod.Page.Alias));
+                    .ForMember(prodDTO => prodDTO.Alias, opt => opt.MapFrom(prod => prod.Page.Alias))
+                    .ForMember(prodDTO => prodDTO.Images, opt => opt.MapFrom(prod => prod.Images.Select(itp => itp.Image)))
+                    .ForMember(prodDTO => prodDTO.RelatedProducts, opt => opt.MapFrom(prod => prod.ProductToProductsChilds
+                        .Select(ptp => ptp.ProductChild)));
                 cfg.CreateMap<Image, ImageDTO>();
             }).CreateMapper();
             ProductPageDTO productDTO = mapper.Map<ProductPageDTO>(product);
@@ -268,6 +274,50 @@ namespace _3_layer_shop.BLL.Services
             };
 
             return productCategories;
+        }
+
+        public ProductCategoryPageDTO GetProductList(int pageNumber, int pageSize)
+        {
+            IEnumerable<Product> products = _dbContext.Products.Include(p => p.Page).Include(p => p.MainImage)
+                .Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            if (!products.Any())
+            {
+                return new ProductCategoryPageDTO();
+            }
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductPageDTO>()
+                    .ForMember(prodDTO => prodDTO.Alias, opt => opt.MapFrom(prod => prod.Page.Alias));
+                cfg.CreateMap<Image, ImageDTO>();
+            }).CreateMapper();
+
+            IEnumerable<ProductPageDTO> productsDTO = mapper.Map<IEnumerable<ProductPageDTO>>(products);
+
+            ProductCategoryPageDTO categoryPage = new ProductCategoryPageDTO
+            {
+                Products = productsDTO
+            };
+
+            categoryPage.TotalItems = _dbContext.Products.Count();
+
+            return categoryPage;
+        }
+
+        public IEnumerable<ProductPageDTO> GetProductList()
+        {
+            IEnumerable<Product> products = _dbContext.Products;
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductPageDTO>()
+                    .ForMember(p => p.MainImage, (options) => options.Ignore())
+                    .ForMember(p => p.Images, (options) => options.Ignore());
+            }).CreateMapper();
+            IEnumerable<ProductPageDTO> productsDTO = mapper.Map<IEnumerable<ProductPageDTO>>(products);
+
+            return productsDTO;
         }
     }
 }

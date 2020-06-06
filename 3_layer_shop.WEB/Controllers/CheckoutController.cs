@@ -19,13 +19,13 @@ namespace _3_layer_shop.WEB.Controllers
         private Cart _cart;
         private IDictionary<string, string> _siteSettings;
         private ICommonService _commonService;
-        private IBannerService _bannerService;
+        private IImageService _imageService;
         private ICheckoutService _checkoutService;
 
-        public CheckoutController(Cart cart, IBannerService bannerService, ICommonService commonService, ICheckoutService checkoutService)
+        public CheckoutController(Cart cart, IImageService imageService, ICommonService commonService, ICheckoutService checkoutService)
         {
             _cart = cart;
-            _bannerService = bannerService;
+            _imageService = imageService;
             _commonService = commonService;
             _checkoutService = checkoutService;
             _siteSettings = _commonService.GetSiteSettings();
@@ -41,7 +41,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {

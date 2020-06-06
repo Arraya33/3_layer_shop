@@ -6,7 +6,10 @@ using _3_layer_shop.WEB.Models;
 using _3_layer_shop.WEB.Models.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +21,16 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
     [Authorize]
     public class AdminProductController : Controller
     {
+        private IWebHostEnvironment _appEnvironment;
         private IProductService _productService;
+        private IImageService _imageService;
         int _pageSize;
 
-        public AdminProductController(IProductService productService)
+        public AdminProductController(IProductService productService, IWebHostEnvironment appEnvironment, IImageService imageService)
         {
             _productService = productService;
+            _appEnvironment = appEnvironment;
+            _imageService = imageService;
             _pageSize = 3;
         }
 
@@ -50,10 +57,29 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
             return View(productCateories);
         }
 
-        public IActionResult ProductsList()
+        public IActionResult ProductsList(int page = 1)
         {
-            IEnumerable<ProductPageViewModel> productPageViewModels = new List<ProductPageViewModel>();
-            return View(productPageViewModels);
+            ProductCategoryPageDTO productDTOs = _productService.GetProductList(page, _pageSize);
+
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCategoryPageDTO, ProductListPageViewModel>();
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+            ProductListPageViewModel model = mapper.Map<ProductListPageViewModel>(productDTOs);
+
+            PagingInfo pagingInfo = new PagingInfo
+            {
+                CurrentPage = page,
+                ItemsPerPage = _pageSize,
+                TotalItems = productDTOs.TotalItems,
+                PageAction = "ProductsList"
+            };
+
+            model.PagingInfo = pagingInfo;
+
+            return View(model);
         }
 
         public IActionResult EditProductCategory(int categoryId, int page = 1)
@@ -134,8 +160,29 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
 
         public IActionResult EditProduct(int productId)
         {
-            ProductPageViewModel productPageViewModel = new ProductPageViewModel();
-            return View(productPageViewModel);
+            ProductPageDTO productPageDTO = _productService.GetProduct(productId);
+
+            if (productPageDTO == null)
+                return NotFound();
+
+            IMapper categoryMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
+                cfg.CreateMap<ImageDTO, ImageViewModel>();
+            }).CreateMapper();
+
+            ProductPageViewModel model = categoryMapper.Map<ProductPageViewModel>(productPageDTO);
+
+            model.RelatedProductIds = model.RelatedProducts.Select(p => p.Id).ToArray();
+
+            IEnumerable<ProductPageDTO> productsDTOs = _productService.GetProductList();
+            IMapper productMapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductPageDTO, ProductPageViewModel>()).CreateMapper();
+
+            IEnumerable<ProductPageViewModel> products = productMapper.Map<IEnumerable<ProductPageViewModel>>(productsDTOs);
+
+            ViewBag.RelatedProducts = new MultiSelectList(products, "Id", "Name");
+
+            return View(model);
         }
 
         [HttpPost]
@@ -153,5 +200,19 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
 
         public ViewResult Create() 
             => View("EditProductCategory", new ProductListPageViewModel());
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddProductImage(IFormFile uploadedFile)
+        {
+            if (uploadedFile != null)
+            {
+                // _appEnvironment.WebRootPath - wwwroot
+                string path = await _imageService.UploadImageFileAsync(uploadedFile, _appEnvironment.WebRootPath);
+                if (path != null)
+                    return Ok(path);
+            }
+            return BadRequest();
+        }
     }
 }

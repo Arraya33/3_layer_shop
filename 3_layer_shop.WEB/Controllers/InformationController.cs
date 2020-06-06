@@ -13,14 +13,14 @@ namespace _3_layer_shop.WEB.Controllers
     public class InformationController : Controller
     {
         private IInformationService _informationService;
-        private IBannerService _bannerService;
+        private IImageService _imageService;
         private IDictionary<string, string> _siteSettings;
         private ICommonService _commonService;
 
-        public InformationController(IInformationService informationService, IBannerService bannerService, ICommonService commonService)
+        public InformationController(IInformationService informationService, IImageService imageService, ICommonService commonService)
         {
             _informationService = informationService;
-            _bannerService = bannerService;
+            _imageService = imageService;
             _commonService = commonService;
             _siteSettings = _commonService.GetSiteSettings();
         }
@@ -38,7 +38,7 @@ namespace _3_layer_shop.WEB.Controllers
             if (_siteSettings.TryGetValue("BigBannerId", out string bannerIdString))
                 if (int.TryParse(bannerIdString, out int singleBannerId))
                 {
-                    BannerDTO bannerDTO = _bannerService.GetBanner(singleBannerId);
+                    BannerDTO bannerDTO = _imageService.GetBanner(singleBannerId);
 
                     IMapper bannerMapper = new MapperConfiguration(cfg =>
                     {

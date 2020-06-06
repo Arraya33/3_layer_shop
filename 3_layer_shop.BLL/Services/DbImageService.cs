@@ -3,18 +3,21 @@ using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.DAL.EF;
 using _3_layer_shop.DAL.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _3_layer_shop.BLL.Services
 {
-    public class DbBannerService : IBannerService
+    public class DbImageService : IImageService
     {
         private SiteDbContext _dbContext;
-        public DbBannerService(SiteDbContext dbContext)
+        public DbImageService(SiteDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -58,6 +61,21 @@ namespace _3_layer_shop.BLL.Services
             BannerDTO bannerDTO = mapper.Map<BannerDTO>(banner);
 
             return bannerDTO;
+        }
+
+        public async Task<string> UploadImageFileAsync(IFormFile uploadedFile, string rootPath)
+        {
+            if (uploadedFile != null)
+            {
+                string path = "/images/products/" + uploadedFile.FileName;
+                
+                using (FileStream fileStream = new FileStream(rootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                return path;
+            }
+            return null;
         }
     }
 }

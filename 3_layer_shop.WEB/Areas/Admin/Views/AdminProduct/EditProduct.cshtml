@@ -1,3 +1,204 @@
 ﻿@model ProductPageViewModel
 
-<h2>Редактирование товара</h2>
+<h2>@Model.Name (редактирование)</h2>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#parameters-tab">Характеристики</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#images-tab">Изображения</a>
+    </li>
+</ul>
+
+<form method="post" asp-action="EditProduct">
+    <div class="tab-content">
+        <div class="tab-pane fade show active pt-3" id="parameters-tab">
+            <input type="hidden" asp-for="MainImage.Id" />
+            <input type="hidden" asp-for="MainImage.Path" />
+            <div class="form-group">
+                <img class="img-thumbnail" width="150" height="150" id="main_image" src="@Model.MainImage?.Path" alt="@Model.MainImage?.Alt" />
+                <div class="custom-file">
+                    <input class="custom-file-input" input-id="MainImage_Path" image-id="main_image" name="image_upload" type="file" lang="ru" />
+                    <label class="custom-file-label" for="image_upload">Выберите файл</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RelatedProductIds"></label>
+                <div><span asp-validation-for="RelatedProductIds" class="text-danger"></span></div>
+                <select multiple class="custom-select" asp-for="RelatedProductIds" asp-items="ViewBag.RelatedProducts"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <div><span asp-validation-for="Name" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <div><span asp-validation-for="Price" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Price" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Alias"></label>
+                <div><span asp-validation-for="Alias" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Alias" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <div><span asp-validation-for="Title" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Title" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <div><span asp-validation-for="Description" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Description" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <div><span asp-validation-for="Price" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Price" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountPrice"></label>
+                <div><span asp-validation-for="DiscountPrice" class="text-danger"></span></div>
+                <input class="form-control" asp-for="DiscountPrice" />
+            </div>
+            <div class="form-group">
+                <label asp-for="IntroText"></label>
+                <div><span asp-validation-for="IntroText" class="text-danger"></span></div>
+                <input class="form-control" asp-for="IntroText" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <div><span asp-validation-for="Quantity" class="text-danger"></span></div>
+                <input class="form-control" asp-for="Quantity" />
+            </div>
+        </div>
+        <div class="tab-pane fade pt-3" id="images-tab">
+            <table id="images-tbl" class="table">
+                <thead>
+                    <tr>
+                        <th>Изображение</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" onclick="addImageRow();">Добавить</button>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @if (Model.Images != null)
+                    {
+                        @for (int i = 0; i < Model.Images.Count(); i++)
+                        {
+                            <tr id="image-row@(i)">
+                                <td>
+                                    <input type="hidden" asp-for="Images[i].Id" />
+                                    <input type="hidden" asp-for="Images[i].Path" />
+                                    <img class="img-thumbnail" id="@(i)_image" width="80" height="80" src="@Model.Images[i].Path" alt="@Model.Images[i].Alt" />
+                                </td>
+                                <td>
+                                    <div class="custom-file mr-1">
+                                        <input class="custom-file-input" input-id="Images_@(i)__Path" image-id="@(i)_image" name="image_upload" type="file" lang="ru" />
+                                        <label class="custom-file-label" for="image_upload">Выберите файл</label>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="deleteImage('#image-row@(i)');">Удалить</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="Index" asp-controller="AdminHome" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+
+
+
+    @section Scripts {
+        <script>
+            function addImage() {
+                var files = this.files;
+                var formData = new FormData();
+                var imageId = $(this).attr("image-id");
+                var inputId = $(this).attr("input-id");
+                var labelItem = $(this).next("label");
+
+                for (var i = 0; i != files.length; i++) {
+                    formData.append("uploadedFile", files[i]);
+                }
+
+                $.ajax({
+                    url: "/Admin/AdminProduct/AddProductImage/",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    success: function (img) {
+                        $("#" + imageId).attr("src", img).attr("alt", "");
+                        $("#" + inputId).val(img);
+                        $(labelItem).text(img);
+                    },
+                    error: function () {
+                        alert("ошибка при загрузке изображения");
+                    }
+                });
+            }
+
+            var elements = $("input[name='image_upload']");
+            elements.each(function () {
+                this.addEventListener("change", addImage);
+            });
+
+        </script>
+
+        <script type="text/javascript">
+
+        var image_row = @Model.Images.Count;
+
+        function deleteImage(item) {
+            $(item).remove();
+            image_row--;
+
+            var row = $("#images-tbl tbody").children("tr");
+
+            row.each(function (index) {
+                $(this).attr("id", "image-row" + index);
+                $(this).find("input[name $= Path]").attr("name", "Images[" + index + "].Path").attr("id", "Images_" + index + "__Path");
+                $(this).find("input[name $= Id]").attr("name", "Images[" + index + "].Id").attr("id", "Images_" + index + "__Id");
+                $(this).find("img").attr("id", index + "_image");
+
+                $(this).find("input[name = image_upload]").attr("input-id", "Images_" + index + "__Path").attr("image-id", index + '_image');
+                $(this).find("a").attr("onclick", "deleteImage('#image-row" + index + "');");
+            });
+        }
+
+
+        function addImageRow() {
+            var html = '<tr id="image-row' + image_row + '">';
+            html += '<td><input type="hidden" id="Images_' + image_row + '__Path" name="Images[' + image_row + '].Path" /><img class="img-thumbnail" id="' + image_row + '_image" width="80" height="80" src="" /></td>';
+            html += '<td><div class="custom-file mr-1"><input class="custom-file-input" input-id="Images_' + image_row + '__Path" image-id="' + image_row + '_image" name="image_upload" type="file" lang="ru" />';
+            html += '<label class="custom-file-label" for="image_upload">Выберите файл</label></div >';
+            html += '<button type="button" class="btn btn-sm btn-primary" onclick="deleteImage(\'#image-row' + image_row + '\');">Удалить</button></td >';
+            html += '</tr>';
+
+            $('#images-tbl tbody').append(html);
+
+            var elements = $("input[name='image_upload']");
+            elements.each(function () {
+                this.addEventListener("change", addImage);
+            });
+
+            image_row++;
+        }
+        </script>
+    }

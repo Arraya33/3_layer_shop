@@ -198,9 +198,8 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
             return View(productPageViewModel);
         }
 
-        public ViewResult Create() 
+        public ViewResult CreateProduct() 
             => View("EditProductCategory", new ProductListPageViewModel());
-
 
         [HttpPost]
         public async Task<IActionResult> AddProductImage(IFormFile uploadedFile)

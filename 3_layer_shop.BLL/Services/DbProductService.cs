@@ -127,7 +127,7 @@ namespace _3_layer_shop.BLL.Services
                 return null;
             }
 
-            //выполняется в отдельном зпросе так как невозможно сортировать и выборочно получать продукты в запросе, получающем категорию товаров
+            //выполняется в отдельном запросе так как невозможно сортировать и выборочно получать продукты в запросе, получающем категорию товаров
             IEnumerable<Product> products = _dbContext.Entry(productCategory).Collection(pc => pc.ProductToCategories).Query()
                 .Include(ptc => ptc.Product).ThenInclude(p => p.MainImage).Include(ptc => ptc.Product).ThenInclude(p => p.Page)
                 .Select(ptc => ptc.Product).OrderBy(orderExp).Skip((pageNumber - 1) * pageSize).Take(pageSize);
@@ -180,6 +180,7 @@ namespace _3_layer_shop.BLL.Services
                 return null;
             }
 
+            //выполняется в отдельном запросе так как невозможно сортировать и выборочно получать продукты в запросе, получающем категорию товаров
             IEnumerable<Product> products = _dbContext.Entry(productCategory).Collection(pc => pc.ProductToCategories).Query()
                 .Include(ptc => ptc.Product).ThenInclude(p => p.MainImage).Select(ptc => ptc.Product)
                 .OrderBy(orderExp).Skip((pageNumber - 1) * pageSize).Take(pageSize);
@@ -207,7 +208,7 @@ namespace _3_layer_shop.BLL.Services
             return productCategoryDTO;
         }
 
-        public ProductCategoryPageDTO GetDiscountProductPage(int pageNumber, int pageSize, ProductOrderType orderType)
+        public ProductCategoryPageDTO GetDiscountProductsPage(int pageNumber, int pageSize, ProductOrderType orderType)
         {
             Expression<Func<Product, object>> orderExp;
 

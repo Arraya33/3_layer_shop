@@ -143,7 +143,7 @@ namespace _3_layer_shop.WEB.Controllers
 
         public ActionResult DiscountList(int page = 1)
         {
-            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductPage(page, _pageSize, ProductOrderType.Name);
+            ProductCategoryPageDTO discountProductsPageDTO = _productService.GetDiscountProductsPage(page, _pageSize, ProductOrderType.Name);
 
             if (discountProductsPageDTO == null)
                 return NotFound();

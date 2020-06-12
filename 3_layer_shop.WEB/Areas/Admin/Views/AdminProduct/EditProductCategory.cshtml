@@ -1,6 +1,13 @@
 ﻿@model ProductListPageViewModel
 
-<h2>Редактирование категории товара</h2>
+@if (Model.Id <= 0)
+{
+    <h2>Добавление категории товара</h2>
+}
+else
+{
+    <h2>@Model.Name (редактирование)</h2>
+}
 
 
 <ul class="nav nav-tabs">

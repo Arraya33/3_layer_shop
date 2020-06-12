@@ -1,6 +1,13 @@
 ﻿@model ProductPageViewModel
 
-<h2>@Model.Name (редактирование)</h2>
+@if (Model.Id <= 0)
+{
+    <h2>Добавление товара</h2>
+}
+else
+{
+    <h2>@Model.Name (редактирование)</h2>
+}
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -200,5 +207,5 @@
 
             image_row++;
         }
-        </script>
-    }
+    </script>
+}

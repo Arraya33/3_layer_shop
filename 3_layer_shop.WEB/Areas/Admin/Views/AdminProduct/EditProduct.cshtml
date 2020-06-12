@@ -124,46 +124,46 @@
 
 
 
-    @section Scripts {
-        <script>
-            function addImage() {
-                var files = this.files;
-                var formData = new FormData();
-                var imageId = $(this).attr("image-id");
-                var inputId = $(this).attr("input-id");
-                var labelItem = $(this).next("label");
+@section Scripts {
+    <script>
+        function addImage() {
+            var files = this.files;
+            var formData = new FormData();
+            var imageId = $(this).attr("image-id");
+            var inputId = $(this).attr("input-id");
+            var labelItem = $(this).next("label");
 
-                for (var i = 0; i != files.length; i++) {
-                    formData.append("uploadedFile", files[i]);
-                }
-
-                $.ajax({
-                    url: "/Admin/AdminProduct/AddProductImage/",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
-                    success: function (img) {
-                        $("#" + imageId).attr("src", img).attr("alt", "");
-                        $("#" + inputId).val(img);
-                        $(labelItem).text(img);
-                    },
-                    error: function () {
-                        alert("ошибка при загрузке изображения");
-                    }
-                });
+            for (var i = 0; i != files.length; i++) {
+                formData.append("uploadedFile", files[i]);
             }
 
-            var elements = $("input[name='image_upload']");
-            elements.each(function () {
-                this.addEventListener("change", addImage);
+            $.ajax({
+                url: "/Admin/AdminProduct/AddProductImage/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function (img) {
+                    $("#" + imageId).attr("src", img).attr("alt", "");
+                    $("#" + inputId).val(img);
+                    $(labelItem).text(img);
+                },
+                error: function () {
+                    alert("ошибка при загрузке изображения");
+                }
             });
+        }
 
-        </script>
+        var elements = $("input[name='image_upload']");
+        elements.each(function () {
+            this.addEventListener("change", addImage);
+        });
 
-        <script type="text/javascript">
+    </script>
 
-        var image_row = @Model.Images.Count;
+    <script type="text/javascript">
+
+        var image_row = @(Model.Images?.Count ?? 0);
 
         function deleteImage(item) {
             $(item).remove();

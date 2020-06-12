@@ -158,6 +158,9 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
             return View(productListPageViewModel);
         }
 
+        public ViewResult CreateProductCategory()
+            => View("EditProductCategory", new ProductListPageViewModel());
+
         public IActionResult EditProduct(int productId)
         {
             ProductPageDTO productPageDTO = _productService.GetProduct(productId);
@@ -193,13 +196,13 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
 
         [HttpPost]
         public IActionResult DeleteProduct(int productId)
-        {
+        {           
             ProductPageViewModel productPageViewModel = new ProductPageViewModel();
             return View(productPageViewModel);
         }
 
         public ViewResult CreateProduct() 
-            => View("EditProductCategory", new ProductListPageViewModel());
+            => View("EditProduct", new ProductPageViewModel());
 
         [HttpPost]
         public async Task<IActionResult> AddProductImage(IFormFile uploadedFile)

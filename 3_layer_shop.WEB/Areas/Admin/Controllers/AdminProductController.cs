@@ -1,5 +1,6 @@
 ﻿using _3_layer_shop.BLL.DTO;
 using _3_layer_shop.BLL.Enums;
+using _3_layer_shop.BLL.Infrastructure;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.WEB.Areas.Admin.Models.ViewModels;
 using _3_layer_shop.WEB.Models;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,6 +119,31 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult EditProductCategory(ProductListPageViewModel productListPageViewModel)
         {
+            IMapper viewModelToDtoMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductListPageViewModel, ProductCategoryPageDTO>();
+            }).CreateMapper();
+            ProductCategoryPageDTO productCategoryDTO = viewModelToDtoMapper.Map<ProductCategoryPageDTO>(productListPageViewModel);
+
+            try
+            {
+                _productService.EditProductCategoryPage(productCategoryDTO);
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                TempData["error"] = ex.Message;
+            }
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("ProductCategoriesList");
+            }
+
             ProductCategoryPageDTO productCategoryPageDTO = _productService
                 .GetProductCategoryPage(productListPageViewModel.Id, 1, _pageSize, ProductOrderType.Name);
 
@@ -125,12 +152,12 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
 
             IEnumerable<ProductPageDTO> productDTOs = productCategoryPageDTO?.Products;
 
-            IMapper mapper = new MapperConfiguration(cfg =>
+            IMapper dtoToViewModelMapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductPageDTO, ProductPageViewModel>();
                 cfg.CreateMap<ImageDTO, ImageViewModel>();
             }).CreateMapper();
-            IEnumerable<ProductPageViewModel> products = mapper.Map<IEnumerable<ProductPageViewModel>>(productDTOs);
+            IEnumerable<ProductPageViewModel> products = dtoToViewModelMapper.Map<IEnumerable<ProductPageViewModel>>(productDTOs);
 
             productListPageViewModel.Products = products;
 
@@ -154,8 +181,18 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteProductCategory(int categoryId)
         {
-            ProductListPageViewModel productListPageViewModel = new ProductListPageViewModel();
-            return View(productListPageViewModel);
+            ProductCategoryPageDTO deletedProductCategory = _productService.DeleteProductCategoryPage(categoryId);
+
+            if (deletedProductCategory != null)
+            {
+                TempData["message"] = $"Категория \"{deletedProductCategory.Name}\" удалена";
+            }
+            else
+            {
+                TempData["error"] = $"Ошибка удаления категории товаров";
+            }
+
+            return RedirectToAction("ProductCategoriesList");
         }
 
         public ViewResult CreateProductCategory()
@@ -191,17 +228,55 @@ namespace _3_layer_shop.WEB.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult EditProduct(ProductPageViewModel productPageViewModel)
         {
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductPageViewModel, ProductPageDTO>()
+                    .ForMember(prodDTO => prodDTO.RelatedProducts, 
+                    opt => opt.MapFrom(prod => productPageViewModel.RelatedProductIds.Select(id => new ProductPageDTO {Id = id })));
+                cfg.CreateMap<ImageViewModel, ImageDTO>();
+            }).CreateMapper();
+            ProductPageDTO productPageDTO = mapper.Map<ProductPageDTO>(productPageViewModel);
+
+            try
+            {
+                _productService.EditProductPage(productPageDTO);
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                TempData["error"] = ex.Message;
+            }
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("ProductsList");
+            }
+
             return View(productPageViewModel);
         }
 
         [HttpPost]
         public IActionResult DeleteProduct(int productId)
-        {           
-            ProductPageViewModel productPageViewModel = new ProductPageViewModel();
-            return View(productPageViewModel);
+        {
+            ProductPageDTO deletedProduct = _productService.DeleteProductPage(productId);
+
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"\"{deletedProduct.Name}\" удален";
+            }
+            else
+            {
+                TempData["error"] = $"Ошибка удаления товара";
+            }
+
+            return RedirectToAction("ProductsList");
         }
 
-        public ViewResult CreateProduct() 
+        public ViewResult CreateProduct()
             => View("EditProduct", new ProductPageViewModel());
 
         [HttpPost]

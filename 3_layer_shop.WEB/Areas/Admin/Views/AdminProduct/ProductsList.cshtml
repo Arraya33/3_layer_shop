@@ -21,7 +21,12 @@
                 <td>@product.Name</td>
                 <td>@product.Alias</td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">Изменить</a>
+                    <form asp-action="DeleteProduct" asp-route-productId="@product.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">Изменить</a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Удалить
+                        </button>
+                    </form>                    
                 </td>
             </tr>
         }

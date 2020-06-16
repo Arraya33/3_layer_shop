@@ -40,7 +40,7 @@ namespace _3_layer_shop.WEB
             services.AddTransient<ICheckoutService, DbCheckoutService>();
             services.AddTransient<IAccountService, IdentityAccountService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());          
+            services.AddScoped<Cart>(sp => new SessionCartFactory(sp).GetCart());
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
 

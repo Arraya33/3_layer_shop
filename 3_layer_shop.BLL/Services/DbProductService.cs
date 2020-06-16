@@ -1,5 +1,6 @@
 ﻿using _3_layer_shop.BLL.DTO;
 using _3_layer_shop.BLL.Enums;
+using _3_layer_shop.BLL.Infrastructure;
 using _3_layer_shop.BLL.Interfaces;
 using _3_layer_shop.DAL.EF;
 using _3_layer_shop.DAL.Entities;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -319,6 +321,26 @@ namespace _3_layer_shop.BLL.Services
             IEnumerable<ProductPageDTO> productsDTO = mapper.Map<IEnumerable<ProductPageDTO>>(products);
 
             return productsDTO;
+        }
+
+        public void EditProductPage(ProductPageDTO productPage)
+        {
+            throw new DbUpdateException("заглушка");
+        }
+
+        public ProductPageDTO DeleteProductPage(int productId)
+        {
+            return null;
+        }
+
+        public ProductCategoryPageDTO DeleteProductCategoryPage(int categoryId)
+        {
+            return null;
+        }
+
+        public void EditProductCategoryPage(ProductCategoryPageDTO productCategoryPage)
+        {
+            throw new DbUpdateException("заглушка");
         }
     }
 }

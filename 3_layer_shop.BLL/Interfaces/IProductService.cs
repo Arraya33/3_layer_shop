@@ -85,5 +85,26 @@ namespace _3_layer_shop.BLL.Interfaces
         /// <param name="pageSize">количество элементов на странице</param>
         /// <returns></returns>
         public ProductCategoryPageDTO GetProductList(int pageNumber, int pageSize);
+
+        /// <summary>
+        /// изменяет существующий либо, при отсутствии, добавляет новый товар
+        /// </summary>
+        /// <param name="productPage">редактируемый товар</param>
+        public void EditProductPage(ProductPageDTO productPage);
+
+        /// <summary>
+        /// удаляет существующий товар
+        /// </summary>
+        /// <param name="productId">Id товара</param>
+        public ProductPageDTO DeleteProductPage(int productId);
+
+        /// <summary>
+        /// удаляет существующую категорию товаров
+        /// </summary>
+        /// <param name="categoryId">Id категории товара</param>
+        /// <returns></returns>
+        public ProductCategoryPageDTO DeleteProductCategoryPage(int categoryId);
+
+        public void EditProductCategoryPage(ProductCategoryPageDTO productCategoryPage);
     }
 }
